@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; img-src 'self' data: https://i.ytimg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' ws://localhost:*"
+    />
+    <title>Random TV</title>
+  </head>
+  <body>
+    <div id="screen">
+      <div id="player-wrap"><div id="player"></div></div>
+      <canvas id="static" width="240" height="135"></canvas>
+      <div id="no-signal" hidden></div>
+      <div id="crt"></div>
+      <!-- Covers the embed so it can never be clicked: no pausing, seeking or skipping. -->
+      <div id="blocker"></div>
+
+      <div id="osd-channel" class="osd"></div>
+      <div id="osd-volume" class="osd"></div>
+      <div id="toast" class="osd"></div>
+      <div id="guide" hidden></div>
+
+      <div id="hud">
+        <button data-action="ch-down" title="Channel down (↓)">CH ▼</button>
+        <button data-action="ch-up" title="Channel up (↑)">CH ▲</button>
+        <button data-action="vol-down" title="Volume down (←)">VOL −</button>
+        <button data-action="vol-up" title="Volume up (→)">VOL +</button>
+        <button data-action="mute" title="Mute (M)">MUTE</button>
+        <button data-action="captions" title="Captions (C)">CC</button>
+        <span class="spacer"></span>
+        <button data-action="guide" class="guide-btn" title="Program guide (G)">GUIDE</button>
+        <button data-action="fullscreen" title="Fullscreen (F)">FULLSCREEN</button>
+        <button data-action="menu" title="Channels &amp; settings (Esc)">MENU</button>
+      </div>
+    </div>
+
+    <div id="menu" hidden>
+      <header>
+        <h1>RANDOM<span>TV</span></h1>
+        <nav>
+          <button data-tab="channels">Channels</button>
+          <button data-tab="settings">Settings</button>
+        </nav>
+        <button class="primary" data-action="close">Back to TV <kbd>Esc</kbd></button>
+      </header>
+
+      <section id="tab-channels" class="tab">
+        <aside id="channel-list"></aside>
+        <div id="channel-editor"></div>
+      </section>
+
+      <section id="tab-settings" class="tab" hidden>
+        <div class="settings">
+          <label class="field">
+            <span>YouTube Data API key</span>
+            <input id="set-key" type="password" placeholder="AIza…" autocomplete="off" spellcheck="false" />
+            <small>
+              Needed for playlist import, and makes titles and durations more reliable. Create one for free
+              in the <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank">Google Cloud console</a>
+              (enable “YouTube Data API v3”, then create an API key). Your Watch Later list is private, so
+              copy it into an unlisted playlist first.
+            </small>
+          </label>
+          <label class="check"><input id="set-guide" type="checkbox" /> Program guide <small>(G on the TV screen)</small></label>
+          <label class="check"><input id="set-crt" type="checkbox" /> Retro CRT effect</label>
+          <p class="note">
+            Like real TV, there's no pausing, seeking or skipping. Channels keep airing while the app is closed.
+            Ads inserted by YouTube may still play.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
