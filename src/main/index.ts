@@ -8,7 +8,7 @@ import { serveRenderer } from './server.ts'
 app.commandLine.appendSwitch('disable-features', 'HardwareMediaKeyHandling,MediaSessionService')
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required')
 // Lets dev/test runs use a throwaway data folder.
-if (process.env.RANDOMTV_USER_DATA) app.setPath('userData', process.env.RANDOMTV_USER_DATA)
+if (process.env.LATERTV_USER_DATA) app.setPath('userData', process.env.LATERTV_USER_DATA)
 
 let rendererOrigin = ''
 
@@ -19,7 +19,7 @@ async function createWindow() {
     minWidth: 640,
     minHeight: 400,
     backgroundColor: '#000000',
-    title: 'Random TV',
+    title: 'Later TV',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,

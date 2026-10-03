@@ -3,14 +3,23 @@ import { readFile, rename, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import type { AppData } from '../shared/types.ts'
 
-const file = () => join(app.getPath('userData'), 'randomtv.json')
+const file = () => join(app.getPath('userData'), 'latertv.json')
+
+/** Where data lived when the app was still called Random TV. Read once, never written. */
+const legacyFiles = () => [
+  join(app.getPath('userData'), 'randomtv.json'),
+  join(app.getPath('appData'), 'random-tv', 'randomtv.json'),
+]
 
 export async function loadData(): Promise<AppData | null> {
-  try {
-    return JSON.parse(await readFile(file(), 'utf8'))
-  } catch {
-    return null
+  for (const path of [file(), ...legacyFiles()]) {
+    try {
+      return JSON.parse(await readFile(path, 'utf8'))
+    } catch {
+      // Missing or unreadable: try the next location.
+    }
   }
+  return null
 }
 
 let writing: Promise<void> = Promise.resolve()

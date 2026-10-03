@@ -1,5 +1,5 @@
 {
-  "name": "random-tv",
+  "name": "later-tv",
   "version": "0.1.0",
   "description": "Turn your YouTube backlog into live, unskippable TV channels.",
   "main": "./out/main/index.js",
