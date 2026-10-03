@@ -7,8 +7,9 @@ import { serveRenderer } from './server.ts'
 // Media keys must not be able to pause the broadcast.
 app.commandLine.appendSwitch('disable-features', 'HardwareMediaKeyHandling,MediaSessionService')
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required')
-// Lets dev/test runs use a throwaway data folder.
-if (process.env.LATERTV_USER_DATA) app.setPath('userData', process.env.LATERTV_USER_DATA)
+// One data folder whether run from source or as the packaged "Later TV" app (which would
+// otherwise pick a folder named after the product). Dev/test runs can point it elsewhere.
+app.setPath('userData', process.env.LATERTV_USER_DATA ?? join(app.getPath('appData'), 'later-tv'))
 
 let rendererOrigin = ''
 

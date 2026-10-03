@@ -47,5 +47,6 @@ npm run dev        # run with hot reload
 npm run build && npm start   # run the production build
 npm test           # schedule / parsing unit tests
 npm run typecheck
+npm run dist       # package the app into dist/ (a .dmg on macOS)
 ```
 Keys: ↑/↓ channel, 1–9 jump to channel, ←/→ volume, M mute, C captions, G program guide, F fullscreen ↔ guide, Enter fill window (from the guide), Esc back to guide.
