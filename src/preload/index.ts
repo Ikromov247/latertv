@@ -6,7 +6,8 @@ const api: Api = {
   saveData: (data) => ipcRenderer.invoke('data:save', data),
   fetchVideos: (ids, apiKey) => ipcRenderer.invoke('yt:videos', ids, apiKey),
   fetchPlaylist: (id, apiKey) => ipcRenderer.invoke('yt:playlist', id, apiKey),
-  toggleFullscreen: () => ipcRenderer.invoke('win:fullscreen'),
+  setFullscreen: (on) => ipcRenderer.invoke('win:fullscreen', on),
+  validateKey: (apiKey) => ipcRenderer.invoke('yt:validate', apiKey),
 }
 
 contextBridge.exposeInMainWorld('api', api)

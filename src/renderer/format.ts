@@ -12,7 +12,17 @@ export function fmtDuration(seconds: number): string {
 }
 
 export function fmtClock(ms: number): string {
-  return new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  return new Date(ms).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+}
+
+/** "7:22 PM" -> ["7:22", "PM"]; 24-hour locales have no suffix. */
+export function clockParts(ms: number): [string, string] {
+  const m = fmtClock(ms).match(/^(.*?)\s*([AaPp]\.?\s?[Mm]\.?)$/)
+  return m ? [m[1], m[2].toUpperCase()] : [fmtClock(ms), '']
+}
+
+export function plural(n: number, word: string): string {
+  return `${n} ${word}${n === 1 ? '' : 's'}`
 }
 
 export function chNum(index: number): string {

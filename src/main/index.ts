@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'node:path'
 import { loadData, saveData } from './store.ts'
-import { fetchPlaylist, fetchVideos } from './youtube.ts'
+import { fetchPlaylist, fetchVideos, validateKey } from './youtube.ts'
 import { serveRenderer } from './server.ts'
 
 // Media keys must not be able to pause the broadcast.
@@ -51,9 +51,9 @@ ipcMain.handle('data:load', () => loadData())
 ipcMain.handle('data:save', (_e, data) => saveData(data))
 ipcMain.handle('yt:videos', (_e, ids: string[], key: string) => fetchVideos(ids, key))
 ipcMain.handle('yt:playlist', (_e, id: string, key: string) => fetchPlaylist(id, key))
-ipcMain.handle('win:fullscreen', (e) => {
-  const win = BrowserWindow.fromWebContents(e.sender)
-  win?.setFullScreen(!win.isFullScreen())
+ipcMain.handle('yt:validate', (_e, key: string) => validateKey(key))
+ipcMain.handle('win:fullscreen', (e, on: boolean) => {
+  BrowserWindow.fromWebContents(e.sender)?.setFullScreen(on)
 })
 
 app.whenReady().then(() => {

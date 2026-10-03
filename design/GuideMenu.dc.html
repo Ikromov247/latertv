@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Share+Tech+Mono&display=swap">
+<style>
+body{margin:0}
+a{color:#FFD84A}a:hover{color:#FFE88A}
+button{font:inherit;cursor:pointer}
+textarea::placeholder{color:#6E7799}
+</style>
+</helmet>
+<div style="{{ rootStyle }}" onMouseEnter="{{ activate }}">
+  <div style="{{ menuStyle }}">
+
+    <div style="display:flex;gap:28px;padding:28px 32px 18px">
+      <div style="width:384px;height:216px;flex-shrink:0"></div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:18px">
+          <span style="font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:0.14em;color:var(--muted)">{{ nowLabel }}</span>
+          <div style="flex:1"></div>
+          <span style="font:700 34px 'Barlow Condensed',sans-serif;line-height:1">7:22<span style="font-size:18px;margin-left:4px">PM</span></span>
+          <button onClick="{{ openSettings }}" title="Settings (global)" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;background:transparent;border:1.5px solid var(--line);color:var(--text);font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:0.1em" style-hover="border-color:var(--muted)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="5.5" stroke-width="3" stroke-dasharray="2.4 1.92"></circle><circle cx="8" cy="8" r="2" stroke-width="1.5"></circle></svg>
+            SETTINGS
+          </button>
+        </div>
+        <div style="margin-top:8px;font:700 36px/1.05 'Barlow Condensed',sans-serif;text-wrap:pretty">{{ nowTitle }}</div>
+        <div style="font-size:17px;color:var(--muted)">{{ nowMeta }}</div>
+        <div style="flex:1"></div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <button onClick="{{ toggleTv }}" style="white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:10px;height:44px;padding:0 16px;background:transparent;border:2px solid var(--sel);color:var(--sel);font:700 17px 'Barlow Condensed',sans-serif;letter-spacing:0.06em" style-hover="background:var(--selGhost)">BACK TO TV <span style="font:12px 'Share Tech Mono',monospace;border:1px solid var(--sel);padding:1px 5px">F</span><span style="font:12px 'Share Tech Mono',monospace;border:1px solid var(--sel);padding:1px 5px">ESC</span></button>
+          <span style="font-size:14px;color:var(--dim)">Channels keep airing while the app is closed.</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:3px;padding:0 32px">
+      <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:3px">
+        <div style="background:var(--cell2);color:var(--muted);font:700 15px 'Barlow Condensed',sans-serif;letter-spacing:0.12em;padding:6px 12px">TONIGHT</div>
+        <div style="position:relative;background:var(--cell2);color:var(--muted);font:600 16px 'Barlow Condensed',sans-serif;height:31px">
+          <span style="position:absolute;left:8px;top:6px">7:00</span><span style="position:absolute;left:calc(20% + 8px);top:6px">7:30</span><span style="position:absolute;left:calc(40% + 8px);top:6px">8:00</span><span style="position:absolute;left:calc(60% + 8px);top:6px">8:30</span><span style="position:absolute;left:calc(80% + 8px);top:6px">9:00</span>
+          <span style="position:absolute;left:14.7%;top:0;height:31px;width:2px;background:var(--live)"></span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:3px;height:58px">
+        <sc-if value="{{ ch0Sel }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ selectCh0 }}" style="background:var(--sel);color:var(--selInk);border:0;display:flex;align-items:center;gap:12px;padding:0 12px;text-align:left">
+            <span style="font:700 30px 'Barlow Condensed',sans-serif">01</span>
+            <span style="display:flex;flex-direction:column"><span style="font:700 19px 'Barlow Condensed',sans-serif">Channel 1</span><span style="font-size:13px;font-weight:500">{{ ch0Count }}</span></span>
+          </button>
+        </sc-if>
+        <sc-if value="{{ ch0NotSel }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ selectCh0 }}" style="background:var(--cell);color:var(--text);border:0;display:flex;align-items:center;gap:12px;padding:0 12px;text-align:left" style-hover="background:var(--cell2)">
+            <span style="font:700 30px 'Barlow Condensed',sans-serif;color:var(--muted)">01</span>
+            <span style="display:flex;flex-direction:column"><span style="font:700 19px 'Barlow Condensed',sans-serif">Channel 1</span><span style="font-size:13px;color:var(--muted)">{{ ch0Count }}</span></span>
+          </button>
+        </sc-if>
+        <sc-if value="{{ hasCh0Programs }}" hint-placeholder-val="{{ true }}">
+          <div style="position:relative">
+            <div style="position:absolute;left:0;width:calc(26% - 3px);top:0;bottom:0;background:var(--now);padding:7px 10px;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;gap:3px">
+              <span style="font:700 11px 'Share Tech Mono',monospace;letter-spacing:0.1em;color:var(--live)">● NOW · 17 MIN LEFT</span>
+              <span style="font:600 17px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Lain Explained! [Layer 01-03]</span>
+            </div>
+            <div style="position:absolute;left:26%;width:calc(26% - 3px);top:0;bottom:0;background:var(--cell);padding:7px 10px;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;gap:3px">
+              <span style="font:11px 'Share Tech Mono',monospace;color:var(--dim)">7:39</span>
+              <span style="font:600 17px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">POV you are a sleepless taxi driver…</span>
+            </div>
+            <div style="position:absolute;left:52%;width:calc(14% - 3px);top:0;bottom:0;background:var(--cell);padding:7px 10px;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;gap:3px">
+              <span style="font:11px 'Share Tech Mono',monospace;color:var(--dim)">8:18</span>
+              <span style="font:600 17px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Lain Ep 01</span>
+            </div>
+            <div style="position:absolute;left:66%;width:calc(27.3% - 3px);top:0;bottom:0;background:var(--cell);padding:7px 10px;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;gap:3px">
+              <span style="font:11px 'Share Tech Mono',monospace;color:var(--dim)">8:39</span>
+              <span style="font:600 17px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Lain Explained! [Layer 01-03]</span>
+            </div>
+            <div style="position:absolute;left:93.3%;right:0;top:0;bottom:0;background:var(--cell);padding:7px 6px;box-sizing:border-box;font:11px 'Share Tech Mono',monospace;color:var(--dim)">9:20</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noCh0Programs }}" hint-placeholder-val="{{ false }}">
+          <div style="background:repeating-linear-gradient(90deg,var(--stripeA) 0 6px,var(--stripeB) 6px 12px);display:flex;align-items:center;padding:0 14px;font:600 16px 'Barlow Condensed',sans-serif;letter-spacing:0.06em;color:var(--muted)">NO SIGNAL · ADD VIDEOS TO START AIRING</div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ showCh1 }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:3px;height:46px">
+          <sc-if value="{{ ch1Sel }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ selectCh1 }}" style="background:var(--sel);color:var(--selInk);border:0;display:flex;align-items:center;gap:12px;padding:0 12px;text-align:left">
+              <span style="font:700 26px 'Barlow Condensed',sans-serif">02</span>
+              <span style="font:700 18px 'Barlow Condensed',sans-serif">[Second channel]</span>
+            </button>
+          </sc-if>
+          <sc-if value="{{ ch1NotSel }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ selectCh1 }}" style="background:var(--cell);color:var(--text);border:0;display:flex;align-items:center;gap:12px;padding:0 12px;text-align:left" style-hover="background:var(--cell2)">
+              <span style="font:700 26px 'Barlow Condensed',sans-serif;color:var(--muted)">02</span>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif">[Second channel]</span>
+            </button>
+          </sc-if>
+          <div style="background:repeating-linear-gradient(90deg,var(--stripeA) 0 6px,var(--stripeB) 6px 12px);display:flex;align-items:center;padding:0 14px;font:600 16px 'Barlow Condensed',sans-serif;letter-spacing:0.06em;color:var(--muted)">NO SIGNAL · ADD VIDEOS TO START AIRING</div>
+        </div>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:3px">
+        <button style="background:transparent;border:2px dashed var(--line);color:var(--muted);padding:5px 12px;font:600 16px 'Barlow Condensed',sans-serif;text-align:left" style-hover="color:var(--text);border-color:var(--muted)">+ New channel</button>
+      </div>
+    </div>
+
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;padding:16px 32px 22px">
+      <div style="display:flex;flex-direction:column;gap:6px;min-height:0">
+        <span style="font:600 13px 'Barlow Condensed',sans-serif;letter-spacing:0.14em;color:var(--dim)">SELECTED CHANNEL</span>
+        <div style="display:flex;align-items:baseline;gap:10px"><span style="font:700 40px 'Barlow Condensed',sans-serif;line-height:1">{{ chNum }}</span><span style="font:700 24px 'Barlow Condensed',sans-serif">{{ chName }}</span></div>
+        <span style="font-size:14px;color:var(--muted)">{{ chMeta }}</span>
+        <div style="flex:1"></div>
+        <div style="display:flex;gap:8px">
+          <button style="height:38px;padding:0 14px;background:transparent;border:1.5px solid var(--line);color:var(--text);font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:0.06em" style-hover="border-color:var(--muted)">Rename</button>
+          <button style="height:38px;padding:0 14px;background:transparent;border:1.5px solid var(--line);color:var(--danger);font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:0.06em" style-hover="border-color:var(--danger)">Delete channel</button>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;min-height:0;min-width:0">
+        <div style="display:flex;justify-content:space-between;gap:12px;font:600 14px 'Barlow Condensed',sans-serif;letter-spacing:0.12em;color:var(--muted)"><span>{{ libLabel }}</span><span style="letter-spacing:0.02em;font-weight:500;color:var(--dim)">A video leaves the channel at 70% watched</span></div>
+        <div ref="{{ scrollRef }}" style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:3px;padding-right:4px">
+
+          <sc-if value="{{ hasPrograms }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:64px minmax(0,1fr) 130px 54px 110px 36px;gap:14px;align-items:center;background:var(--cell);padding:5px 6px;flex-shrink:0" style-hover="background:var(--cell2)">
+              <div style="height:36px;background:repeating-linear-gradient(135deg,var(--stripeA) 0 6px,var(--stripeB) 6px 12px)"></div>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Serial Experiments Lain Explained! [Layer 01-03]</span>
+              <span style="font:700 13px 'Barlow Condensed',sans-serif;letter-spacing:0.1em;color:var(--live)">● ON AIR</span>
+              <span style="font:14px 'Share Tech Mono',monospace;color:var(--muted)">41:25</span>
+              <span style="position:relative;height:5px;background:var(--bg)"><span style="position:absolute;left:0;top:0;bottom:0;width:2%;background:var(--text)"></span><span style="position:absolute;left:70%;top:-4px;width:2px;height:13px;background:var(--muted)"></span></span>
+              <button aria-label="Remove from channel" style="width:36px;height:36px;background:transparent;border:0;color:var(--dim);font-size:16px" style-hover="color:var(--text)">✕</button>
+            </div>
+            <div style="display:grid;grid-template-columns:64px minmax(0,1fr) 130px 54px 110px 36px;gap:14px;align-items:center;background:var(--cell);padding:5px 6px;flex-shrink:0" style-hover="background:var(--cell2)">
+              <div style="height:36px;background:repeating-linear-gradient(135deg,var(--stripeA) 0 6px,var(--stripeB) 6px 12px)"></div>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">POV you are a sleepless taxi driver listening to a Radiohead playlist at late night</span>
+              <span style="font:600 15px 'Barlow Condensed',sans-serif;color:var(--text)">Next · 7:39 PM</span>
+              <span style="font:14px 'Share Tech Mono',monospace;color:var(--muted)">39:11</span>
+              <span style="position:relative;height:5px;background:var(--bg)"><span style="position:absolute;left:70%;top:-4px;width:2px;height:13px;background:var(--muted)"></span></span>
+              <button aria-label="Remove from channel" style="width:36px;height:36px;background:transparent;border:0;color:var(--dim);font-size:16px" style-hover="color:var(--text)">✕</button>
+            </div>
+            <div style="display:grid;grid-template-columns:64px minmax(0,1fr) 130px 54px 110px 36px;gap:14px;align-items:center;background:var(--cell);padding:5px 6px;flex-shrink:0" style-hover="background:var(--cell2)">
+              <div style="height:36px;background:repeating-linear-gradient(135deg,var(--stripeA) 0 6px,var(--stripeB) 6px 12px)"></div>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Serial experiments Lain Ep 01 LEGENDADO PT-BR</span>
+              <span style="font:600 15px 'Barlow Condensed',sans-serif;color:var(--muted)">Airs 8:18 PM</span>
+              <span style="font:14px 'Share Tech Mono',monospace;color:var(--muted)">20:19</span>
+              <span style="position:relative;height:5px;background:var(--bg)"><span style="position:absolute;left:70%;top:-4px;width:2px;height:13px;background:var(--muted)"></span></span>
+              <button aria-label="Remove from channel" style="width:36px;height:36px;background:transparent;border:0;color:var(--dim);font-size:16px" style-hover="color:var(--text)">✕</button>
+            </div>
+
+            <button onClick="{{ toggleCant }}" style="display:flex;align-items:center;gap:10px;flex-shrink:0;height:40px;padding:0 12px;background:transparent;border:0;border-top:1px solid var(--line);color:var(--muted);font:600 16px 'Barlow Condensed',sans-serif;text-align:left" style-hover="color:var(--text)">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--danger)"></span>
+              <span style="color:var(--text)">1 can't air</span><span style="font-weight:500">Live stream</span>
+              <div style="flex:1"></div>
+              <span style="font:12px 'Share Tech Mono',monospace;letter-spacing:0.08em">{{ cantToggleLabel }}</span>
+            </button>
+            <sc-if value="{{ cantOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:64px minmax(0,1fr) 320px 36px;gap:14px;align-items:center;padding:5px 6px;flex-shrink:0;background:var(--cellMute)">
+                <div style="height:36px;background:var(--input);display:flex;align-items:center;justify-content:center;font:9px 'Share Tech Mono',monospace;color:var(--dim)">NO SIGNAL</div>
+                <span style="font:600 18px 'Barlow Condensed',sans-serif;color:var(--muted)">[Video title]</span>
+                <span style="font:500 15px 'Barlow',sans-serif;color:var(--danger)">Live streams can't be scheduled · no fixed length</span>
+                <button aria-label="Remove from channel" style="width:36px;height:36px;background:transparent;border:0;color:var(--dim);font-size:16px" style-hover="color:var(--text)">✕</button>
+              </div>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{ noPrograms }}" hint-placeholder-val="{{ false }}">
+            <div style="flex-shrink:0;padding:14px 4px 10px;font-size:15px;line-height:1.5;color:var(--muted);text-wrap:pretty">Nothing on {{ chName }} yet. Add videos and it starts airing right away; tuning in drops you mid-program, like real TV.</div>
+          </sc-if>
+
+          <sc-if value="{{ addClosed }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ openAdd }}" style="flex-shrink:0;height:52px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:10px;background:transparent;border:2px dashed var(--line);color:var(--text)" style-hover="border-color:var(--muted);background:var(--cellMute)">
+              <span style="font:400 30px/1 'Barlow',sans-serif;color:var(--muted);margin-top:-3px">+</span>
+              <span style="font:700 18px 'Barlow Condensed',sans-serif;letter-spacing:0.04em">Add videos</span>
+              <span style="font-size:14px;color:var(--dim)">links or a playlist</span>
+            </button>
+          </sc-if>
+
+          <sc-if value="{{ addOpenAny }}" hint-placeholder-val="{{ false }}">
+            <div style="flex-shrink:0;margin-top:4px;border:2px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">
+                <span style="font:700 14px 'Barlow Condensed',sans-serif;letter-spacing:0.12em;color:var(--muted)">ADD TO {{ chNameUpper }}</span>
+                <span style="font-size:13px;color:var(--dim)">One link per line, or a playlist URL</span>
+              </div>
+              <textarea rows="3" value="{{ draft }}" onChange="{{ onDraft }}" disabled="{{ isLooking }}" placeholder="https://youtu.be/…
+https://www.youtube.com/playlist?list=…" style="resize:none;font:14px/1.6 'Share Tech Mono',monospace;color:var(--text);background:var(--input);border:1.5px solid var(--line);padding:8px 12px;outline:none"></textarea>
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="flex:1;min-width:0;font-size:14px;line-height:1.45">
+                  <sc-if value="{{ isIdle }}" hint-placeholder-val="{{ false }}"><span style="color:var(--dim)">⌘ Enter to add · Esc to close</span></sc-if>
+                  <sc-if value="{{ isLooking }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column;gap:6px"><span style="color:var(--text)">Looking up 3 videos…</span><span style="position:relative;height:3px;width:220px;background:var(--cell2)"><span style="position:absolute;left:0;top:0;bottom:0;width:45%;background:var(--muted)"></span></span></div>
+                  </sc-if>
+                  <sc-if value="{{ isResult }}" hint-placeholder-val="{{ false }}"><span style="color:var(--text);font-weight:600">Added 3</span><span style="color:var(--muted)"> · 1 already on this channel · 1 can't air (live stream)</span></sc-if>
+                  <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column"><span style="color:var(--danger)">Line 2 isn't a YouTube link.</span><span style="color:var(--muted)"><span style="color:var(--danger)">Playlists need a YouTube API key.</span> Add one in <a href="#" onClick="{{ openSettings }}">Settings</a>, or paste the video links instead.</span></div>
+                  </sc-if>
+                </div>
+                <button onClick="{{ closeAdd }}" style="height:40px;padding:0 14px;background:transparent;border:1.5px solid var(--line);color:var(--text);font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:0.06em" style-hover="border-color:var(--muted)">{{ closeLabel }}</button>
+                <button onClick="{{ submitAdd }}" style="height:40px;padding:0 16px;background:transparent;border:2px solid var(--sel);color:var(--sel);font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:0.06em" style-hover="background:var(--selGhost)">{{ submitLabel }}</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="{{ previewStyle }}" onClick="{{ toggleTv }}">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,var(--stripeA) 0 10px,var(--stripeB) 10px 20px)"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:13px 'Share Tech Mono',monospace;letter-spacing:0.1em;color:var(--dim)">{{ previewLabel }}</div>
+    <span style="position:absolute;top:10px;right:14px;font:36px 'VT323',monospace;color:#7DFF7A;text-shadow:0 0 6px rgba(125,255,122,0.6)">01</span>
+    <sc-if value="{{ isTv }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.25) 0 1px,transparent 1px 3px)"></div>
+      <span style="position:absolute;left:24px;bottom:20px;font:22px 'VT323',monospace;color:#7DFF7A;text-shadow:0 0 6px rgba(125,255,122,0.6)">ESC · MENU</span>
+    </sc-if>
+    <sc-if value="{{ notTv }}" hint-placeholder-val="{{ true }}">
+      <span style="position:absolute;left:8px;bottom:8px;font:11px 'Share Tech Mono',monospace;letter-spacing:0.08em;color:var(--text);background:rgba(0,0,0,0.55);padding:3px 7px">F · FULL SCREEN</span>
+    </sc-if>
+  </div>
+
+  <div style="{{ settingsStyle }}">
+    <div style="display:flex;align-items:center;gap:18px;padding:28px 32px 22px">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <span style="font:700 40px/1 'Barlow Condensed',sans-serif">Settings</span>
+        <span style="font-size:15px;color:var(--muted)">For the whole TV, every channel</span>
+      </div>
+      <div style="flex:1"></div>
+      <span style="display:flex;align-items:center;gap:8px;font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:0.1em;color:var(--muted)"><span style="width:8px;height:8px;border-radius:50%;background:var(--live)"></span>CH 01 STILL AIRING</span>
+      <span style="font:700 34px 'Barlow Condensed',sans-serif;line-height:1">7:22<span style="font-size:18px;margin-left:4px">PM</span></span>
+      <button onClick="{{ closeSettings }}" style="white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:10px;height:44px;padding:0 16px;background:transparent;border:2px solid var(--sel);color:var(--sel);font:700 17px 'Barlow Condensed',sans-serif;letter-spacing:0.06em" style-hover="background:var(--selGhost)">BACK TO GUIDE <span style="font:12px 'Share Tech Mono',monospace;border:1px solid var(--sel);padding:1px 5px">ESC</span></button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:32px;padding:0 32px">
+      <div style="display:flex;flex-direction:column;gap:26px;min-width:0">
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <span style="font:600 14px 'Barlow Condensed',sans-serif;letter-spacing:0.14em;color:var(--muted);padding-bottom:5px">PICTURE &amp; SOUND</span>
+          <sc-for list="{{ toggles }}" as="t" hint-placeholder-count="3">
+            <div onClick="{{ t.toggle }}" style="{{ t.rowStyle }}">
+              <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                <span style="font:700 20px 'Barlow Condensed',sans-serif">{{ t.name }}</span>
+                <span style="{{ t.descStyle }}">{{ t.desc }}</span>
+              </div>
+              <span style="{{ t.keyStyle }}">{{ t.keyLabel }}</span>
+              <div style="{{ t.switchStyle }}">
+                <span style="{{ t.onStyle }}">ON</span>
+                <span style="{{ t.offStyle }}">OFF</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font:600 14px 'Barlow Condensed',sans-serif;letter-spacing:0.14em;color:var(--muted)">YOUTUBE CONNECTION</span>
+            <div style="flex:1"></div>
+            <span style="display:flex;align-items:center;gap:7px;font:12px 'Share Tech Mono',monospace;letter-spacing:0.08em;color:var(--muted)"><span style="{{ keyDotStyle }}"></span>{{ keyStatus }}</span>
+          </div>
+          <div style="background:var(--cell);padding:16px;display:flex;flex-direction:column;gap:12px">
+            <label for="ytkey" style="font:700 20px 'Barlow Condensed',sans-serif">YouTube Data API key <span style="font-weight:500;color:var(--muted)">· optional</span></label>
+            <div style="display:flex;gap:8px">
+              <input id="ytkey" type="password" autocomplete="off" placeholder="AIza…" value="{{ keyDraft }}" onChange="{{ onKeyDraft }}" style="{{ keyInputStyle }}">
+              <button onClick="{{ saveKey }}" style="white-space:nowrap;height:44px;padding:0 16px;background:transparent;border:2px solid var(--sel);color:var(--sel);font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:0.06em" style-hover="background:var(--selGhost)">{{ saveLabel }}</button>
+            </div>
+            <span style="{{ keyMsgStyle }}">{{ keyMsg }}</span>
+            <ol style="margin:0;padding:12px 14px 12px 32px;background:var(--cellMute);font-size:14px;line-height:1.75;color:var(--muted)">
+              <li>Open the <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com">Google Cloud console</a> and enable <span style="font-family:'Share Tech Mono',monospace;color:var(--text)">YouTube Data API v3</span>.</li>
+              <li>Create an API key under Credentials and paste it above.</li>
+              <li>Watch Later is private — copy it into an unlisted playlist, then import that.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <span style="font:600 14px 'Barlow Condensed',sans-serif;letter-spacing:0.14em;color:var(--muted);padding-bottom:5px">HOW THIS TV WORKS</span>
+          <div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;background:var(--cell);padding:11px 14px;font-size:14px;line-height:1.5;color:var(--muted)"><span style="font:700 22px/1 'Barlow Condensed',sans-serif;color:var(--text)">1</span><span><b style="color:var(--text);font-weight:600">It's live.</b> No pausing, seeking or skipping. Tune in and you land mid-program.</span></div>
+          <div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;background:var(--cell);padding:11px 14px;font-size:14px;line-height:1.5;color:var(--muted)"><span style="font:700 22px/1 'Barlow Condensed',sans-serif;color:var(--text)">2</span><span><b style="color:var(--text);font-weight:600">It never stops.</b> Channels keep airing while the app is closed.</span></div>
+          <div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;background:var(--cell);padding:11px 14px;font-size:14px;line-height:1.5;color:var(--muted)"><span style="font:700 22px/1 'Barlow Condensed',sans-serif;color:var(--text)">3</span><span><b style="color:var(--text);font-weight:600">Watched means gone.</b> Once you've seen 70% of a program, it leaves the channel.</span></div>
+          <div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;background:var(--cell);padding:11px 14px;font-size:14px;line-height:1.5;color:var(--muted)"><span style="font:700 22px/1 'Barlow Condensed',sans-serif;color:var(--text)">4</span><span><b style="color:var(--text);font-weight:600">Commercials happen.</b> Ads YouTube inserts may still play.</span></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <span style="font:600 14px 'Barlow Condensed',sans-serif;letter-spacing:0.14em;color:var(--muted);padding-bottom:5px">REMOTE · ON THE TV</span>
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;font-size:15px">
+            <span style="display:flex;align-items:center;gap:12px;background:var(--cell);padding:8px 12px"><span style="font:13px 'Share Tech Mono',monospace;min-width:44px;text-align:center;border:1.5px solid var(--line);padding:2px 6px">↑ ↓</span>Channel</span>
+            <span style="display:flex;align-items:center;gap:12px;background:var(--cell);padding:8px 12px"><span style="font:13px 'Share Tech Mono',monospace;min-width:44px;text-align:center;border:1.5px solid var(--line);padding:2px 6px">1–9</span>Jump to</span>
+            <span style="display:flex;align-items:center;gap:12px;background:var(--cell);padding:8px 12px"><span style="font:13px 'Share Tech Mono',monospace;min-width:44px;text-align:center;border:1.5px solid var(--line);padding:2px 6px">← →</span>Volume</span>
+            <span style="display:flex;align-items:center;gap:12px;background:var(--cell);padding:8px 12px"><span style="font:13px 'Share Tech Mono',monospace;min-width:44px;text-align:center;border:1.5px solid var(--line);padding:2px 6px">M</span>Mute</span>
+            <span style="display:flex;align-items:center;gap:12px;background:var(--cell);padding:8px 12px"><span style="font:13px 'Share Tech Mono',monospace;min-width:44px;text-align:center;border:1.5px solid var(--line);padding:2px 6px">C</span>Captions</span>
+            <span style="display:flex;align-items:center;gap:12px;background:var(--cell);padding:8px 12px"><span style="font:13px 'Share Tech Mono',monospace;min-width:44px;text-align:center;border:1.5px solid var(--line);padding:2px 6px">G</span>Guide</span>
+            <span style="display:flex;align-items:center;gap:12px;background:var(--cell);padding:8px 12px"><span style="font:13px 'Share Tech Mono',monospace;min-width:44px;text-align:center;border:1.5px solid var(--line);padding:2px 6px">F</span>Fullscreen</span>
+            <span style="display:flex;align-items:center;gap:12px;background:var(--cell);padding:8px 12px"><span style="font:13px 'Share Tech Mono',monospace;min-width:44px;text-align:center;border:1.5px solid var(--line);padding:2px 6px">Esc</span>Menu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:760},&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;navy&quot;,&quot;charcoal&quot;,&quot;graphite&quot;,&quot;phosphor&quot;,&quot;plum&quot;,&quot;walnut&quot;],&quot;default&quot;:&quot;phosphor&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;default&quot;,&quot;empty&quot;,&quot;adding&quot;,&quot;result&quot;,&quot;error&quot;],&quot;default&quot;:&quot;default&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;guide&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;guide&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;keyState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;idle&quot;,&quot;ok&quot;,&quot;error&quot;],&quot;default&quot;:&quot;idle&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;interactive&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const PALETTES = {
+  navy:     { bg:'#0F1528', cell:'#1A2241', cell2:'#232D52', cellMute:'#141B33', line:'#313C66', text:'#EEF1F8', muted:'#A3ABC4', dim:'#7880A0', input:'#0A0F1E', stripeA:'#1A2240', stripeB:'#141B34', now:'#2A3566' },
+  charcoal: { bg:'#141311', cell:'#1F1D1A', cell2:'#2A2824', cellMute:'#191816', line:'#3B3833', text:'#F2EEE6', muted:'#ABA597', dim:'#7E786E', input:'#0E0D0C', stripeA:'#23211D', stripeB:'#1B1A17', now:'#36312A' },
+  phosphor: { bg:'#0E1513', cell:'#18211E', cell2:'#212C28', cellMute:'#121A17', line:'#2F3D38', text:'#EAF2EE', muted:'#9FB0A9', dim:'#6F807A', input:'#0A100E', stripeA:'#1A2420', stripeB:'#141C19', now:'#1F3A30' },
+  plum:     { bg:'#161117', cell:'#211A23', cell2:'#2B222E', cellMute:'#1B151D', line:'#3C3140', text:'#F2ECF3', muted:'#AFA2B2', dim:'#7F7383', input:'#100C11', stripeA:'#241C26', stripeB:'#1C161E', now:'#3A2440' },
+  walnut:   { bg:'#17120E', cell:'#231C16', cell2:'#2D251D', cellMute:'#1C1612', line:'#3E342A', text:'#F3EDE4', muted:'#B1A593', dim:'#837765', input:'#100C09', stripeA:'#261E17', stripeB:'#1E1813', now:'#3D2C1C' },
+  graphite: { bg:'#121519', cell:'#1C2026', cell2:'#262B33', cellMute:'#171A1F', line:'#353C47', text:'#EEF1F5', muted:'#A0A8B4', dim:'#737B88', input:'#0C0E11', stripeA:'#1F232A', stripeB:'#191C22', now:'#22304F' }
+};
+const START = { default:'closed', empty:'open', adding:'looking', result:'result', error:'error' };
+const DRAFTS = {
+  adding: 'https://www.youtube.com/watch?v=…\nhttps://www.youtube.com/watch?v=…\nhttps://youtu.be/…',
+  error: 'https://youtu.be/…\nwatch later\nhttps://www.youtube.com/playlist?list=…'
+};
+
+class Component extends DCLogic {
+  state = {
+    tv: false,
+    ch: 0,
+    add: START[this.props.state] || 'closed',
+    cant: false,
+    draft: DRAFTS[this.props.state] || '',
+    screen: this.props.startScreen === 'settings' ? 'settings' : 'guide',
+    focus: this.props.startScreen === 'settings' ? 0 : -1,
+    opts: { crt: true, guide: true, cc: false },
+    key: this.props.keyState || 'idle',
+    keyDraft: this.props.keyState === 'error' || this.props.keyState === 'ok' ? 'AIzaSyB-4kQ9x7mN2pR8vL3tW6yZ1cE5fH0jK' : ''
+  };
+  toggleOpt(id) { this.setState(s => ({ opts: { ...s.opts, [id]: !s.opts[id] } })); }
+  saveKeyNow() {
+    if (!this.state.keyDraft) return;
+    this.setState({ key: 'checking' });
+    clearTimeout(this.k);
+    this.k = setTimeout(() => this.setState({ key: this.state.keyDraft.startsWith('AIza') && this.state.keyDraft.length > 30 ? 'ok' : 'error' }), 1200);
+  }
+
+  scrollRef = React.createRef();
+  scrollDown() {
+    const el = this.scrollRef.current;
+    if (el && this.state.add !== 'closed') el.scrollTop = el.scrollHeight;
+  }
+  componentDidUpdate(_, prev) {
+    if (prev.add !== this.state.add) this.scrollDown();
+  }
+  componentDidMount() {
+    requestAnimationFrame(() => this.scrollDown());
+    setTimeout(() => this.scrollDown(), 300);
+    if (!this.props.interactive) return;
+    if (!window.__guideActive) window.__guideActive = this;
+    this.onKey = (e) => {
+      if (window.__guideActive !== this) return;
+      const typing = e.target && e.target.tagName === 'TEXTAREA';
+      if (this.state.screen === 'settings') {
+        const inInput = e.target && e.target.tagName === 'INPUT';
+        if (e.key === 'Escape') { e.preventDefault(); if (inInput) e.target.blur(); this.setState({ screen: 'guide' }); }
+        else if (inInput) { if (e.key === 'Enter') this.saveKeyNow(); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); this.setState(s => ({ focus: Math.min(2, s.focus + 1) })); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); this.setState(s => ({ focus: Math.max(0, s.focus - 1) })); }
+        else if ((e.key === 'Enter' || e.key === ' ') && this.state.focus >= 0) { e.preventDefault(); this.toggleOpt(['crt', 'guide', 'cc'][this.state.focus]); }
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        if (typing || (this.state.add !== 'closed' && !this.state.tv)) { e.target.blur && e.target.blur(); this.setState({ add: 'closed' }); return; }
+        this.setState(s => ({ tv: !s.tv }));
+      } else if ((e.key === 'f' || e.key === 'F') && !typing && !this.state.tv) {
+        this.setState({ tv: true });
+      } else if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && typing) {
+        this.submit();
+      }
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() {
+    if (this.onKey) window.removeEventListener('keydown', this.onKey);
+    if (window.__guideActive === this) window.__guideActive = null;
+    clearTimeout(this.t);
+  }
+  submit() {
+    if (this.state.add === 'looking') return;
+    this.setState({ add: 'looking' });
+    clearTimeout(this.t);
+    this.t = setTimeout(() => this.setState({ add: 'result', draft: '' }), 1600);
+  }
+
+  renderVals() {
+    const p = PALETTES[this.props.palette] || PALETTES.phosphor;
+    const empty = this.props.state === 'empty';
+    const { tv, ch, add, cant } = this.state;
+    const hasPrograms = !empty && ch === 0;
+    const chName = ch === 0 ? 'Channel 1' : '[Second channel]';
+    const W = 1280, H = 760;
+    const ease = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
+    return {
+      rootStyle: {
+        '--bg': p.bg, '--cell': p.cell, '--cell2': p.cell2, '--cellMute': p.cellMute, '--line': p.line,
+        '--text': p.text, '--muted': p.muted, '--dim': p.dim, '--input': p.input,
+        '--stripeA': p.stripeA, '--stripeB': p.stripeB, '--now': p.now,
+        '--sel': '#FFD84A', '--selInk': '#16140F', '--selGhost': 'rgba(255,216,74,0.1)',
+        '--live': '#FF5A4E', '--danger': '#FF8A80',
+        width: W, height: H, position: 'relative', overflow: 'hidden', flexShrink: 0,
+        background: 'var(--bg)', color: 'var(--text)', fontFamily: "'Barlow', sans-serif", fontSize: 16
+      },
+      menuStyle: {
+        position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+        opacity: tv ? 0 : 1, pointerEvents: tv ? 'none' : 'auto',
+        transition: tv ? 'opacity 150ms ease-out' : 'opacity 200ms ease-out 220ms'
+      },
+      previewStyle: {
+        position: 'absolute', zIndex: 5, cursor: 'pointer', overflow: 'hidden', boxSizing: 'border-box',
+        left: tv ? 0 : 32, top: tv ? 0 : 28, width: tv ? W : 384, height: tv ? H : 216,
+        border: tv ? '0px solid var(--text)' : '3px solid var(--text)',
+        transition: `left 420ms ${ease}, top 420ms ${ease}, width 420ms ${ease}, height 420ms ${ease}, border-width 420ms ${ease}`
+      },
+      scrollRef: this.scrollRef,
+      settingsStyle: {
+        position: 'absolute', inset: 0, zIndex: 6, background: 'var(--bg)', display: 'flex', flexDirection: 'column',
+        opacity: this.state.screen === 'settings' ? 1 : 0, pointerEvents: this.state.screen === 'settings' ? 'auto' : 'none',
+        transition: 'opacity 160ms ease-out'
+      },
+      openSettings: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ screen: 'settings', focus: 0 }); },
+      closeSettings: () => this.setState({ screen: 'guide' }),
+      toggles: [
+        { id: 'crt', name: 'CRT effect', desc: 'Scanlines, vignette and a faint flicker over the picture', key: '' },
+        { id: 'guide', name: 'Program guide', desc: "What's on now and next on every channel, on the TV", key: 'G' },
+        { id: 'cc', name: 'Captions', desc: "Uses the video's default track, or your system language", key: 'C' }
+      ].map((t, i) => {
+        const on = this.state.opts[t.id], f = this.state.focus === i;
+        const ink = f ? 'var(--selInk)' : 'var(--text)';
+        const cell = { display: 'flex', alignItems: 'center', justifyContent: 'center', font: "700 14px 'Barlow Condensed', sans-serif", letterSpacing: '0.1em' };
+        return {
+          name: t.name, desc: t.desc, keyLabel: t.key,
+          toggle: () => { this.setState({ focus: i }); this.toggleOpt(t.id); },
+          rowStyle: { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 40px 120px', gap: 20, alignItems: 'center', padding: '12px 16px', cursor: 'pointer', background: f ? 'var(--sel)' : 'var(--cell)', color: ink },
+          descStyle: { fontSize: 14, color: f ? 'var(--selInk)' : 'var(--muted)', opacity: f ? 0.8 : 1 },
+          keyStyle: { font: "13px 'Share Tech Mono', monospace", textAlign: 'center', border: t.key ? `1.5px solid ${f ? 'var(--selInk)' : 'var(--line)'}` : '0', padding: '2px 0', color: ink, visibility: t.key ? 'visible' : 'hidden' },
+          switchStyle: { display: 'grid', gridTemplateColumns: '1fr 1fr', height: 34, border: `1.5px solid ${f ? 'var(--selInk)' : 'var(--line)'}` },
+          onStyle: { ...cell, background: on ? (f ? 'var(--selInk)' : 'var(--text)') : 'transparent', color: on ? (f ? 'var(--sel)' : 'var(--bg)') : (f ? 'var(--selInk)' : 'var(--dim)') },
+          offStyle: { ...cell, background: !on ? (f ? 'var(--selInk)' : 'var(--cell2)') : 'transparent', color: !on ? (f ? 'var(--sel)' : 'var(--text)') : (f ? 'var(--selInk)' : 'var(--dim)') }
+        };
+      }),
+      keyStatus: { idle: 'NOT CONNECTED', checking: 'CHECKING…', ok: 'CONNECTED', error: 'NOT CONNECTED' }[this.state.key],
+      keyDotStyle: { width: 8, height: 8, borderRadius: '50%', background: this.state.key === 'ok' ? '#7DFF7A' : this.state.key === 'error' ? 'var(--danger)' : 'var(--dim)', boxShadow: this.state.key === 'ok' ? '0 0 6px #7DFF7A' : 'none' },
+      keyDraft: this.state.keyDraft,
+      onKeyDraft: (e) => this.setState({ keyDraft: e.target.value, key: this.state.key === 'checking' ? 'checking' : 'idle' }),
+      keyInputStyle: { flex: 1, minWidth: 0, height: 44, boxSizing: 'border-box', font: "14px 'Share Tech Mono', monospace", color: 'var(--text)', background: 'var(--input)', border: `1.5px solid ${this.state.key === 'error' ? 'var(--danger)' : 'var(--line)'}`, padding: '0 12px', outline: 'none' },
+      saveKey: () => this.saveKeyNow(),
+      saveLabel: this.state.key === 'checking' ? 'CHECKING…' : this.state.key === 'ok' ? 'SAVED' : 'SAVE KEY',
+      keyMsg: {
+        idle: 'Without a key you can still paste video links. A key unlocks playlist import and more reliable titles and lengths.',
+        checking: 'Checking the key with YouTube…',
+        ok: 'Connected. You can now paste a playlist URL into any channel.',
+        error: "YouTube didn't accept this key. Check it's copied in full and that YouTube Data API v3 is enabled for it."
+      }[this.state.key],
+      keyMsgStyle: { fontSize: 14, lineHeight: 1.5, color: this.state.key === 'error' ? 'var(--danger)' : this.state.key === 'ok' ? 'var(--text)' : 'var(--muted)' },
+      isTv: tv, notTv: !tv,
+      toggleTv: () => this.setState(s => ({ tv: !s.tv })),
+      activate: () => { if (this.props.interactive) window.__guideActive = this; },
+      nowLabel: empty ? 'CH 01 · CHANNEL 1' : 'NOW ON 01 · CHANNEL 1',
+      nowTitle: empty ? 'Nothing on yet' : 'Serial Experiments Lain Explained! [Layer 01-03]',
+      nowMeta: empty ? 'Add videos to Channel 1 and it starts airing right away.' : '6:58 – 7:39 PM · 17 min left · 1% watched',
+      previewLabel: empty ? 'NO SIGNAL' : 'LIVE PICTURE · CH 01',
+      ch0Sel: ch === 0, ch0NotSel: ch !== 0, ch1Sel: ch === 1, ch1NotSel: ch !== 1,
+      selectCh0: () => this.setState({ ch: 0 }), selectCh1: () => this.setState({ ch: 1, add: 'open' }),
+      showCh1: !empty,
+      ch0Count: empty ? 'Empty' : '3 programs',
+      hasCh0Programs: !empty, noCh0Programs: empty,
+      chNum: ch === 0 ? '01' : '02', chName, chNameUpper: chName.toUpperCase(),
+      chMeta: hasPrograms ? '3 programs · 1h 41m · 1 can\u2019t air' : 'No signal · empty',
+      libLabel: hasPrograms ? 'LIBRARY · 3 IN ROTATION' : 'LIBRARY',
+      hasPrograms, noPrograms: !hasPrograms,
+      cantOpen: cant, cantToggleLabel: cant ? 'HIDE ▴' : 'SHOW ▾',
+      toggleCant: () => this.setState(s => ({ cant: !s.cant })),
+      addClosed: add === 'closed', addOpenAny: add !== 'closed',
+      isIdle: add === 'open', isLooking: add === 'looking', isResult: add === 'result', isError: add === 'error',
+      openAdd: () => this.setState({ add: 'open' }),
+      closeAdd: () => this.setState({ add: 'closed', draft: '' }),
+      submitAdd: () => this.submit(),
+      closeLabel: add === 'result' ? 'Done' : 'Cancel',
+      submitLabel: add === 'looking' ? 'ADDING…' : 'ADD VIDEOS',
+      draft: this.state.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value, add: this.state.add === 'looking' ? 'looking' : 'open' })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -61,7 +61,9 @@ export interface Api {
   saveData(data: AppData): Promise<void>
   fetchVideos(ids: string[], apiKey: string): Promise<VideoMeta[]>
   fetchPlaylist(playlistId: string, apiKey: string): Promise<VideoMeta[]>
-  toggleFullscreen(): Promise<void>
+  setFullscreen(on: boolean): Promise<void>
+  /** Checks a YouTube Data API key with a tiny request. */
+  validateKey(apiKey: string): Promise<boolean>
 }
 
 export const WATCHED_THRESHOLD = 0.7

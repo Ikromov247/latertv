@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=Share+Tech+Mono&display=swap">
+<style>
+body{margin:0;background:#1c1c1b}
+a{color:#FFD84A}a:hover{color:#FFE88A}
+</style>
+</helmet>
+
+<section style="padding:64px 64px 0;width:max-content;box-sizing:border-box;background:#1c1c1b;display:flex;flex-direction:column;gap:28px;font-family:'Barlow',sans-serif;color:#e8e4da">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:960px">
+    <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.14em;color:#8d8a83">TURN 4 · SETTINGS · PHOSPHOR (3A)</div>
+    <div style="font:600 30px 'Barlow Condensed',sans-serif">Settings</div>
+    <div style="font-size:16px;line-height:1.5;color:#b5b1a8;text-wrap:pretty">4a is clickable: toggle the rows, use ↑ ↓ and Enter, and try saving a key (anything that starts with AIza and is over 30 characters passes). Esc goes back to the guide, and the Settings button there brings you back here. 4b and 4c show the key states.</div>
+  </div>
+  <div id="4a" style="display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:baseline;gap:14px">
+      <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">4a</span>
+      <span style="font:600 22px 'Barlow Condensed',sans-serif">Settings · no key yet</span>
+      <span style="font-size:15px;color:#b5b1a8">The CRT effect row is focused (solid yellow). The ON/OFF switch shows the value.</span>
+    </div>
+    <dc-import name="GuideMenu" palette="phosphor" start-screen="settings" interactive="{{ true }}" hint-size="1280px,760px"></dc-import>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;max-width:2700px">
+    <div id="4b" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">4b</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Key connected</span>
+      </div>
+      <dc-import name="GuideMenu" palette="phosphor" start-screen="settings" key-state="ok" interactive="{{ false }}" hint-size="1280px,760px"></dc-import>
+    </div>
+    <div id="4c" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">4c</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Key rejected</span>
+      </div>
+      <dc-import name="GuideMenu" palette="phosphor" start-screen="settings" key-state="error" interactive="{{ false }}" hint-size="1280px,760px"></dc-import>
+    </div>
+  </div>
+  <div style="max-width:1280px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 36px;border-top:1px solid #3a3936;padding-top:28px">
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">GETTING THERE AND BACK</div>
+      <div>The Settings button in the guide's top-right corner crossfades to this screen in 160ms. Esc or "Back to guide" crossfades back. The picture stays mounted behind it and the sound keeps playing.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">TOGGLES</div>
+      <div>The whole row is the hit target. ↑ ↓ moves focus and Enter or Space flips the value. Focus is the solid yellow fill. The value is the ON/OFF switch: the filled half is the current value. Changes apply right away, with no Save button. G and C on the TV change the same settings.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">API KEY</div>
+      <div>Save checks the key with one cheap API call. States are not connected, checking, connected (green dot, same green as the OSD) and rejected (red border and the reason). Enter in the field saves. The key is stored locally and shown masked.</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:64px 64px 0;width:max-content;box-sizing:border-box;background:#1c1c1b;display:flex;flex-direction:column;gap:28px;font-family:'Barlow',sans-serif;color:#e8e4da">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:960px">
+    <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.14em;color:#8d8a83">TURN 3 · MORE GROUNDS · SAME YELLOW AND RED</div>
+    <div style="font:600 30px 'Barlow Condensed',sans-serif">Three more palettes</div>
+    <div style="font-size:16px;line-height:1.5;color:#b5b1a8;text-wrap:pretty">Only the neutrals change. Every palette is also in the Tweaks list, so you can apply it to the state frames below.</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:56px">
+    <div id="3a" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">3a</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Phosphor</span>
+        <span style="font-size:15px;color:#b5b1a8">Green-black, tied to the green OSD on the TV.</span>
+      </div>
+      <dc-import name="GuideMenu" palette="phosphor" interactive="{{ true }}" hint-size="1280px,760px"></dc-import>
+    </div>
+    <div id="3b" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">3b</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Plum</span>
+        <span style="font-size:15px;color:#b5b1a8">Dark violet-gray, late-night broadcast.</span>
+      </div>
+      <dc-import name="GuideMenu" palette="plum" interactive="{{ true }}" hint-size="1280px,760px"></dc-import>
+    </div>
+    <div id="3c" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">3c</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Walnut</span>
+        <span style="font-size:15px;color:#b5b1a8">Brown, like the wood-grain cabinet around the tube.</span>
+      </div>
+      <dc-import name="GuideMenu" palette="walnut" interactive="{{ true }}" hint-size="1280px,760px"></dc-import>
+    </div>
+  </div>
+</section>
+
+<section style="padding:64px;width:max-content;min-height:100vh;box-sizing:border-box;background:#1c1c1b;display:flex;flex-direction:column;gap:40px;font-family:'Barlow',sans-serif;color:#e8e4da">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:960px">
+    <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.14em;color:#8d8a83">TURN 2 · BASED ON 1B CABLE GUIDE · 1280×760 · <a href="Menu Directions.dc.html">TURN 1</a></div>
+    <div style="font:600 30px 'Barlow Condensed',sans-serif">Guide menu, three palettes</div>
+    <div style="font-size:16px;line-height:1.5;color:#b5b1a8;text-wrap:pretty">All three are clickable. Hover one to give it the keyboard. Click the picture or press F to go full screen, and press Esc to come back. Click "+ Add videos" to open the add box, then "Add videos" to run the lookup.</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:56px">
+    <div id="2a" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">2a</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Muted navy</span>
+        <span style="font-size:15px;color:#b5b1a8">Same hue as the guide overlay, about a third of the saturation.</span>
+      </div>
+      <dc-import name="GuideMenu" palette="navy" interactive="{{ true }}" hint-size="1280px,760px"></dc-import>
+    </div>
+    <div id="2b" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">2b</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Warm charcoal</span>
+        <span style="font-size:15px;color:#b5b1a8">Neutral warm dark. Yellow and the red on-air mark are the only colors.</span>
+      </div>
+      <dc-import name="GuideMenu" palette="charcoal" interactive="{{ true }}" hint-size="1280px,760px"></dc-import>
+    </div>
+    <div id="2c" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">2c</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Cool graphite</span>
+        <span style="font-size:15px;color:#b5b1a8">Blue-gray neutrals. Blue survives only in the on-air cell.</span>
+      </div>
+      <dc-import name="GuideMenu" palette="graphite" interactive="{{ true }}" hint-size="1280px,760px"></dc-import>
+    </div>
+  </div>
+
+  <div id="spec" style="max-width:1280px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 36px;border-top:1px solid #3a3936;padding-top:28px">
+    <div style="grid-column:1 / -1;font:600 26px 'Barlow Condensed',sans-serif">Spec notes for implementation</div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">PICTURE ↔ MENU</div>
+      <div>The player is one element. In the menu it is a 384×216 window at top-left (left 32, top 28, 3px light border). It never unmounts and the video never reloads.</div>
+      <div><b style="color:#e8e4da">Expand</b> (click the picture, F, or Esc): animate left/top/width/height to the full window and the border to 0 over 420ms, cubic-bezier(0.2, 0.8, 0.2, 1). Menu content fades out over 150ms at the same time.</div>
+      <div><b style="color:#e8e4da">Return</b> (Esc on the TV): the picture shrinks back over 420ms. The menu fades in over 200ms after a 220ms delay, so it shows up as the picture settles.</div>
+      <div>Sound keeps playing in the menu. The CRT effect and the green OSD only show at full size. The small window shows only the channel number.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">YELLOW HAS TWO JOBS, TWO LOOKS</div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="background:#FFD84A;color:#16140F;font:700 15px 'Barlow Condensed',sans-serif;padding:4px 12px">01 Channel 1</span><span><b style="color:#e8e4da">Selection</b> is a solid yellow fill. Only one at a time. It is also the keyboard focus.</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="border:2px solid #FFD84A;color:#FFD84A;font:700 15px 'Barlow Condensed',sans-serif;padding:3px 10px;white-space:nowrap">ADD VIDEOS</span><span><b style="color:#e8e4da">Primary buttons</b> are a yellow outline with yellow text. At most one per area.</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="border:1.5px solid #555;color:#e8e4da;font:600 15px 'Barlow Condensed',sans-serif;padding:3px 10px">Rename</span><span><b style="color:#e8e4da">Secondary buttons</b> are a neutral outline. Destructive ones use red text.</span></div>
+      <div>A focused button fills solid yellow, the same as selection.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">LIBRARY</div>
+      <div>Scrolls inside its panel. The guide and the picture stay put.</div>
+      <div>Order: videos in schedule order, then one collapsed "N can't air" row (expands in place to list the reasons), then the "+ Add videos" tile last.</div>
+      <div>The tile opens in place into a text box, with status on the left and Cancel / Add videos on the right. When it opens, the panel scrolls so the box's bottom edge shows.</div>
+      <div>Selecting an empty channel opens the add box automatically.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">KEYS IN THE MENU</div>
+      <div><b style="color:#e8e4da">Esc</b> closes the add box if it's open, otherwise goes back to the TV. <b style="color:#e8e4da">F</b> goes back to the TV. On the TV, F still toggles window fullscreen.</div>
+      <div><b style="color:#e8e4da">↑ ↓</b> moves through channels in the guide and videos in the library. <b style="color:#e8e4da">Tab</b> switches between guide, library and the header. <b style="color:#e8e4da">Enter</b> activates. <b style="color:#e8e4da">Delete</b> removes the focused video (with an undo toast). <b style="color:#e8e4da">⌘ Enter</b> submits the add box.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">SETTINGS</div>
+      <div>A global button in the top-right corner, set apart from the channel controls. It opens Settings as its own full screen (see <a href="#4a">4a</a>). Esc from Settings goes back to the guide.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5;color:#c9c5bc">
+      <div style="font:13px 'Share Tech Mono',monospace;letter-spacing:0.12em;color:#8d8a83">SCHEDULE</div>
+      <div>The guide grid shows a 2.5-hour window starting at the half hour before now. The red line marks the current time. Block widths match program length. Blocks cut off at the edges get a 9:20-style time stub.</div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid #3a3936;padding-top:28px">
+      <span style="font:600 26px 'Barlow Condensed',sans-serif">States</span>
+      <span style="font-size:15px;color:#b5b1a8">Shown in the palette picked in Tweaks. The default frames above cover the upcoming schedule.</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:56px;max-width:2700px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 20px 'Barlow Condensed',sans-serif">Empty channel · first launch</span>
+        <dc-import name="GuideMenu" palette="{{ palette }}" state="empty" interactive="{{ false }}" hint-size="1280px,760px"></dc-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 20px 'Barlow Condensed',sans-serif">Adding · looking up videos</span>
+        <dc-import name="GuideMenu" palette="{{ palette }}" state="adding" interactive="{{ false }}" hint-size="1280px,760px"></dc-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 20px 'Barlow Condensed',sans-serif">Add result</span>
+        <dc-import name="GuideMenu" palette="{{ palette }}" state="result" interactive="{{ false }}" hint-size="1280px,760px"></dc-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:600 20px 'Barlow Condensed',sans-serif">Errors · bad link, playlist without an API key</span>
+        <dc-import name="GuideMenu" palette="{{ palette }}" state="error" interactive="{{ false }}" hint-size="1280px,760px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;navy&quot;,&quot;charcoal&quot;,&quot;graphite&quot;,&quot;phosphor&quot;,&quot;plum&quot;,&quot;walnut&quot;],&quot;default&quot;:&quot;phosphor&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { palette: this.props.palette ?? 'phosphor' };
+  }
+}
+</script>
+</body>
+</html>

@@ -24,6 +24,8 @@ let player: YT.Player | null = null
 let loaded: Slot | null = null
 let lastTime: number | null = null
 let playing = false
+/** Whether a video is in the player (loaded or playing), regardless of what we're tuned to. */
+let hasVideo = false
 let tvEvents: TvEvents | null = null
 let captions = false
 /** Captions settle per video once it starts playing, so they're applied once per program. */
@@ -61,8 +63,9 @@ export async function createTv(events: TvEvents): Promise<void> {
         onStateChange: (e) => {
           playing = e.data === YT.PlayerState.PLAYING
           if (playing && !captionsApplied) applyCaptions()
-          // Anything other than playing (paused by some stray input, cued...) gets resumed.
-          if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.CUED) e.target.playVideo()
+          // Anything other than playing (paused by some stray input, cued...) gets resumed,
+          // unless we stopped it on purpose because the channel has nothing on.
+          if (loaded && (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.CUED)) e.target.playVideo()
         },
         onError: (e) => {
           const id = loaded?.videoId
@@ -122,8 +125,12 @@ export function syncTv(ch: Channel | undefined, now: number, watching: boolean):
   if (!player) return
   const slot = ch && currentSlot(ch.schedule, now)
   if (!slot) {
-    if (loaded) player.stopVideo()
+    // Nothing on this channel: kill the picture and sound of whatever was on before.
     loaded = null
+    if (hasVideo) {
+      player.stopVideo()
+      hasVideo = false
+    }
     setStatic(true)
     return
   }
@@ -135,6 +142,7 @@ export function syncTv(ch: Channel | undefined, now: number, watching: boolean):
     captionsApplied = false
     setStatic(true)
     player.loadVideoById({ videoId: slot.videoId, startSeconds: expected })
+    hasVideo = true
     return
   }
 

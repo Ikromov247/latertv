@@ -7,7 +7,6 @@ How it works:
 - Start watching the 'broadcast'
 - Once you watch enough of a video, it is removed from your list.
 
-Simple! 
 
 ## Spec
 
@@ -33,13 +32,13 @@ Simple!
 - Live streams and upcoming premieres can't be scheduled (no fixed length); they're flagged as unavailable. Finished streams air like normal videos, up to 12 hours long.
 - YouTube's own ads can't be controlled and may still play.
 
-### Controls
-- Volume / mute.
-- Captions on/off (off by default, remembered).
-- Channel up / down, with a static transition.
-- Fullscreen.
-- Program guide (now / next per channel), can be turned on/off in Settings.
-- Retro CRT effect (scanlines, vignette, channel number OSD), can be turned on/off in Settings.
+### Views & controls
+- Two views: **TV** (the picture fills the window) and **Guide** (the picture shrinks into a mini screen in the corner of a TV-guide style menu). Settings is its own screen, opened from the guide.
+- Go to TV: click the mini screen once or press F (both also make the window fullscreen), or press Enter (fills the window, window stays as it is).
+- Back to the guide: F, Esc, or double-click anywhere. Leaving the TV also leaves window fullscreen.
+- On the TV, single clicks (left or right) do nothing. The controls bar (shown on mouse move) still works.
+- Volume / mute, captions (off by default, remembered), channel up / down with a static transition, program guide overlay (G, can be turned off), retro CRT effect (can be turned off).
+- Guide: channel timeline (now line, what's airing over the next 2½ hours), select / rename / delete channels, the selected channel's library with watched progress, remove (with confirmation) and add videos (links or a playlist).
 
 ## Development
 ```sh
@@ -49,4 +48,4 @@ npm run build && npm start   # run the production build
 npm test           # schedule / parsing unit tests
 npm run typecheck
 ```
-Keys on the TV screen: ↑/↓ channel, 1–9 jump to channel, ←/→ volume, M mute, C captions, F fullscreen, G guide, Esc menu.
+Keys: ↑/↓ channel, 1–9 jump to channel, ←/→ volume, M mute, C captions, G program guide, F fullscreen ↔ guide, Enter fill window (from the guide), Esc back to guide.

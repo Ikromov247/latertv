@@ -95,6 +95,15 @@ export async function fetchVideos(ids: string[], apiKey: string): Promise<VideoM
   return out
 }
 
+export async function validateKey(apiKey: string): Promise<boolean> {
+  try {
+    await apiGet('videos', { part: 'id', id: 'jNQXAC9IVRw', key: apiKey })
+    return true
+  } catch {
+    return false
+  }
+}
+
 export async function fetchPlaylist(playlistId: string, apiKey: string): Promise<VideoMeta[]> {
   if (!apiKey) throw new Error('Playlist import needs a YouTube Data API key (set it in Settings).')
   const ids: string[] = []

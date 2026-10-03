@@ -1,10 +1,18 @@
+import '@fontsource/barlow/400.css'
+import '@fontsource/barlow/500.css'
+import '@fontsource/barlow/600.css'
+import '@fontsource/barlow-condensed/500.css'
+import '@fontsource/barlow-condensed/600.css'
+import '@fontsource/barlow-condensed/700.css'
+import '@fontsource/share-tech-mono/400.css'
+import '@fontsource/vt323/400.css'
 import './styles.css'
 import { currentSlot, markUnavailable, removeVideo } from '../shared/schedule.ts'
 import { WATCHED_THRESHOLD } from '../shared/types.ts'
 import { addRange, watchedFraction } from '../shared/watched.ts'
 import { chNum, esc } from './format.ts'
 import { renderGuide } from './guide.ts'
-import { closeMenu, initMenu, isMenuOpen, openMenu } from './menu.ts'
+import { guideKey, initGuide, onChannelChanged, renderAll, tickGuide } from './guideMenu.ts'
 import { currentChannel, flush, loadState, now, refreshSchedules, save, state } from './state.ts'
 import { setStatic, staticBurst } from './static.ts'
 import { createTv, retune, setCaptions, setVolume, syncTv } from './tv.ts'
@@ -14,6 +22,26 @@ const guide = $('guide')
 const hud = $('hud')
 
 let guideOpen = false
+
+/** 'tv' fills the window; 'guide' shrinks the TV into the corner of the guide. */
+type View = 'tv' | 'guide'
+let view: View = 'tv'
+let maximizedAt = 0
+
+function setView(next: View, opts: { windowFullscreen?: boolean } = {}) {
+  if (next === 'tv') {
+    maximizedAt = performance.now()
+    if (opts.windowFullscreen) void window.api.setFullscreen(true)
+  } else {
+    // Leaving the TV always leaves window fullscreen too.
+    void window.api.setFullscreen(false)
+    toggleGuide(false)
+    renderAll()
+  }
+  view = next
+  document.body.dataset.view = next
+  ;(document.activeElement as HTMLElement | null)?.blur()
+}
 
 function settings() {
   return state.data.settings
@@ -64,6 +92,8 @@ function changeChannel(index: number) {
   syncTv(currentChannel(), now(), false)
   showChannelOsd()
   updateNoSignal()
+  $('mini-ch').textContent = chNum(state.channelIndex)
+  onChannelChanged()
   save()
 }
 
@@ -112,7 +142,8 @@ function updateNoSignal() {
     $('no-signal').innerHTML =
       `<b>CH ${chNum(state.channelIndex)} · NO SIGNAL</b>` +
       `<span>${ch.videos.length ? 'Nothing on this channel can be aired.' : 'This channel is empty.'} ` +
-      `Press <kbd>Esc</kbd> to add videos.</span>`
+      (view === 'tv' ? `Press <kbd>Esc</kbd> to add videos.` : '') +
+      `</span>`
 }
 
 const keys: Record<string, () => void> = {
@@ -127,22 +158,30 @@ const keys: Record<string, () => void> = {
   '-': () => changeVolume(-5),
   m: toggleMute,
   c: toggleCaptions,
-  f: () => void window.api.toggleFullscreen(),
   g: () => toggleGuide(),
-  Escape: () => (guideOpen ? toggleGuide(false) : openMenu()),
 }
 
 function onKey(e: KeyboardEvent) {
-  if (isMenuOpen()) {
-    if (e.key === 'Escape') closeMenu()
-    return
-  }
-  // Swallow everything on the TV screen (space, k, j, l…) so nothing can reach the player.
+  if (view === 'guide' && guideKey(e)) return
+  // Swallow everything else (space, k, j, l…) so nothing can reach the player.
   e.preventDefault()
   if (e.metaKey || e.ctrlKey) return
+  if (view === 'tv' && (e.key === 'Escape' || e.key.toLowerCase() === 'f')) return setView('guide')
   const n = Number(e.key)
   if (n >= 1 && n <= state.data.channels.length) changeChannel(n - 1)
-  else keys[e.key.length === 1 ? e.key.toLowerCase() : e.key]?.()
+  else if (view === 'tv' || e.key.toLowerCase() !== 'g') keys[e.key.length === 1 ? e.key.toLowerCase() : e.key]?.()
+}
+
+/** One click on the mini screen goes fullscreen; on the full TV, single clicks do nothing. */
+function onScreenClick(e: MouseEvent) {
+  if (view === 'guide' && e.button === 0) setView('tv', { windowFullscreen: true })
+}
+
+function onDoubleClick(e: MouseEvent) {
+  // Ignore the second half of the click that just maximized the mini screen.
+  if (view !== 'tv' || performance.now() - maximizedAt < 600) return
+  if ((e.target as HTMLElement).closest('#hud')) return
+  setView('guide')
 }
 
 let hudTimer = 0
@@ -162,8 +201,7 @@ function onHudClick(e: MouseEvent) {
     mute: toggleMute,
     captions: toggleCaptions,
     guide: () => toggleGuide(),
-    fullscreen: keys.f,
-    menu: openMenu,
+    menu: () => setView('guide'),
   }
   if (action) actions[action]?.()
 }
@@ -193,29 +231,36 @@ function onUnavailable(videoId: string, reason: string) {
 }
 
 function tick() {
-  const watching = !isMenuOpen() && document.visibilityState === 'visible'
+  const watching = view === 'tv' && document.visibilityState === 'visible'
   syncTv(currentChannel(), now(), watching)
   updateNoSignal()
   if (guideOpen) renderGuide(guide, state.data.channels, state.channelIndex, now())
+  if (view === 'guide') tickGuide()
 }
 
 async function boot() {
   setStatic(true)
   await loadState()
   applySettings()
-  initMenu({
-    onClose: () => {
+  initGuide({
+    changeChannel,
+    maximize: (windowFullscreen) => setView('tv', { windowFullscreen }),
+    applySettings: () => {
       applySettings()
-      showChannelOsd()
-    },
-    onChange: () => {
-      applySettings()
-      updateNoSignal()
+      setCaptions(settings().captions)
     },
   })
+  $('mini-ch').textContent = chNum(state.channelIndex)
+  onChannelChanged()
+  // Start on the TV, or in the guide when there's nothing to watch yet.
+  if (currentChannel().videos.length === 0) setView('guide')
+  requestAnimationFrame(() => document.body.classList.add('ready'))
 
   window.addEventListener('keydown', onKey)
   window.addEventListener('mousemove', wakeHud)
+  window.addEventListener('dblclick', onDoubleClick)
+  window.addEventListener('contextmenu', (e) => e.preventDefault())
+  $('blocker').addEventListener('click', onScreenClick)
   hud.addEventListener('click', onHudClick)
   window.addEventListener('beforeunload', flush)
 
@@ -229,7 +274,6 @@ async function boot() {
   setInterval(tick, 500)
   setInterval(refreshSchedules, 30_000)
   showChannelOsd()
-  if (currentChannel().videos.length === 0) openMenu()
 }
 
 void boot()

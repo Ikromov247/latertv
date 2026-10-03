@@ -8,7 +8,40 @@
     />
     <title>Random TV</title>
   </head>
-  <body>
+  <body data-view="tv">
+    <!-- The guide sits underneath; the TV screen shrinks into its top-left corner. -->
+    <div id="gm" aria-label="Guide">
+      <div class="gm-top">
+        <div class="gm-mini-slot"></div>
+        <div class="gm-now">
+          <div class="gm-now-head">
+            <span id="gm-now-label" class="cond-label"></span>
+            <span class="spacer"></span>
+            <span id="gm-clock" class="clock"></span>
+            <button class="btn-line" data-act="open-settings">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="5.5" stroke-width="3" stroke-dasharray="2.4 1.92"></circle><circle cx="8" cy="8" r="2" stroke-width="1.5"></circle></svg>
+              SETTINGS
+            </button>
+          </div>
+          <div id="gm-now-title"></div>
+          <div id="gm-now-meta"></div>
+        </div>
+      </div>
+
+      <div id="gm-grid"></div>
+
+      <div class="gm-bottom">
+        <div id="gm-channel"></div>
+        <div class="gm-lib">
+          <div id="gm-lib-head"></div>
+          <div class="gm-scroll">
+            <div id="gm-library"></div>
+            <div id="gm-add"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="screen">
       <div id="player-wrap"><div id="player"></div></div>
       <canvas id="static" width="240" height="135"></canvas>
@@ -19,8 +52,9 @@
 
       <div id="osd-channel" class="osd"></div>
       <div id="osd-volume" class="osd"></div>
-      <div id="toast" class="osd"></div>
       <div id="guide" hidden></div>
+      <span id="mini-ch"></span>
+      <span id="mini-label">F · FULL SCREEN</span>
 
       <div id="hud">
         <button data-action="ch-down" title="Channel down (↓)">CH ▼</button>
@@ -31,47 +65,80 @@
         <button data-action="captions" title="Captions (C)">CC</button>
         <span class="spacer"></span>
         <button data-action="guide" class="guide-btn" title="Program guide (G)">GUIDE</button>
-        <button data-action="fullscreen" title="Fullscreen (F)">FULLSCREEN</button>
-        <button data-action="menu" title="Channels &amp; settings (Esc)">MENU</button>
+        <button data-action="menu" title="Back to the guide (F, Esc or double-click)">MENU</button>
       </div>
     </div>
 
-    <div id="menu" hidden>
-      <header>
-        <h1>RANDOM<span>TV</span></h1>
-        <nav>
-          <button data-tab="channels">Channels</button>
-          <button data-tab="settings">Settings</button>
-        </nav>
-        <button class="primary" data-action="close">Back to TV <kbd>Esc</kbd></button>
-      </header>
-
-      <section id="tab-channels" class="tab">
-        <aside id="channel-list"></aside>
-        <div id="channel-editor"></div>
-      </section>
-
-      <section id="tab-settings" class="tab" hidden>
-        <div class="settings">
-          <label class="field">
-            <span>YouTube Data API key</span>
-            <input id="set-key" type="password" placeholder="AIza…" autocomplete="off" spellcheck="false" />
-            <small>
-              Needed for playlist import, and makes titles and durations more reliable. Create one for free
-              in the <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank">Google Cloud console</a>
-              (enable “YouTube Data API v3”, then create an API key). Your Watch Later list is private, so
-              copy it into an unlisted playlist first.
-            </small>
-          </label>
-          <label class="check"><input id="set-guide" type="checkbox" /> Program guide <small>(G on the TV screen)</small></label>
-          <label class="check"><input id="set-crt" type="checkbox" /> Retro CRT effect</label>
-          <p class="note">
-            Like real TV, there's no pausing, seeking or skipping. Channels keep airing while the app is closed.
-            Ads inserted by YouTube may still play.
-          </p>
+    <div id="settings-screen" aria-label="Settings">
+      <div class="ss-head">
+        <div class="ss-title">
+          <span>Settings</span>
+          <small>For the whole TV, every channel</small>
         </div>
-      </section>
+        <span class="spacer"></span>
+        <span id="ss-airing" class="cond-label ss-airing"></span>
+        <span id="ss-clock" class="clock"></span>
+        <button class="btn-sel btn-tall" data-act="close-settings">BACK TO GUIDE <kbd>ESC</kbd></button>
+      </div>
+
+      <div class="ss-body">
+        <div class="ss-col">
+          <section class="ss-section">
+            <span class="cond-label section-label">PICTURE &amp; SOUND</span>
+            <div id="ss-toggles"></div>
+          </section>
+
+          <section class="ss-section ss-yt">
+            <div class="ss-yt-head">
+              <span class="cond-label">YOUTUBE CONNECTION</span>
+              <span class="spacer"></span>
+              <span id="ss-key-status" class="key-status"></span>
+            </div>
+            <div class="ss-card">
+              <label for="ss-key-input" class="ss-key-label">YouTube Data API key <span>· optional</span></label>
+              <div class="ss-key-row">
+                <input id="ss-key-input" type="password" autocomplete="off" spellcheck="false" placeholder="AIza…" />
+                <button id="ss-key-save" class="btn-sel btn-tall" data-act="save-key">SAVE KEY</button>
+              </div>
+              <span id="ss-key-msg"></span>
+              <ol class="ss-steps">
+                <li>Open the <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank">Google Cloud console</a> and enable <span class="mono">YouTube Data API v3</span>.</li>
+                <li>Create an API key under Credentials and paste it above.</li>
+                <li>Watch Later is private — copy it into an unlisted playlist, then import that.</li>
+              </ol>
+            </div>
+          </section>
+        </div>
+
+        <div class="ss-col ss-side">
+          <section class="ss-section">
+            <span class="cond-label section-label">HOW THIS TV WORKS</span>
+            <div class="rule"><b>1</b><span><strong>It's live.</strong> No pausing, seeking or skipping. Tune in and you land mid-program.</span></div>
+            <div class="rule"><b>2</b><span><strong>It never stops.</strong> Channels keep airing while the app is closed.</span></div>
+            <div class="rule"><b>3</b><span><strong>Watched means gone.</strong> Once you've seen 70% of a program, it leaves the channel.</span></div>
+            <div class="rule"><b>4</b><span><strong>Commercials happen.</strong> Ads YouTube inserts may still play.</span></div>
+          </section>
+
+          <section class="ss-section">
+            <span class="cond-label section-label">REMOTE</span>
+            <div class="remote">
+              <span><kbd>↑ ↓</kbd>Channel</span>
+              <span><kbd>1–9</kbd>Jump to</span>
+              <span><kbd>← →</kbd>Volume</span>
+              <span><kbd>M</kbd>Mute</span>
+              <span><kbd>C</kbd>Captions</span>
+              <span><kbd>G</kbd>Program guide</span>
+              <span><kbd>F</kbd>Fullscreen</span>
+              <span><kbd>Enter</kbd>Fill window</span>
+              <span><kbd>Esc</kbd>Back to guide</span>
+              <span><kbd>2× click</kbd>Back to guide</span>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
+
+    <div id="toast" class="osd"></div>
 
     <script type="module" src="./main.ts"></script>
   </body>

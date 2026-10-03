@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Chakra+Petch:wght@400;500;600&family=Share+Tech+Mono&display=swap">
+<style>
+body{margin:0;background:#1c1c1b}
+a{color:#e8e4da}a:hover{color:#fff}
+@keyframes blink{50%{opacity:0}}
+</style>
+</helmet>
+
+<section style="padding:64px;width:max-content;min-height:100vh;box-sizing:border-box;background:#1c1c1b;display:flex;flex-direction:column;gap:28px;font-family:'Barlow',sans-serif;color:#e8e4da">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
+    <div style="font:600 13px 'Share Tech Mono',monospace;letter-spacing:0.14em;color:#8d8a83">TURN 1 · CHANNELS TAB · 1280×760</div>
+    <div style="font:600 30px 'Barlow Condensed',sans-serif">Three early-2000s TV directions for the Esc menu</div>
+    <div style="font-size:16px;line-height:1.5;color:#b5b1a8;text-wrap:pretty">Same content as the current Channels screen. Each look borrows from a different part of the set: the TV's own service menu, the cable guide channel, and the VCR front panel.</div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+
+    <!-- 1a SERVICE MENU -->
+    <div id="1a" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">1a</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Service Menu</span>
+        <span style="font-size:15px;color:#b5b1a8">The TV's hidden setup menu. Green phosphor, inverted-bar cursor, same font as the player OSD.</span>
+      </div>
+      <div style="width:1280px;height:760px;position:relative;overflow:hidden;background:#030603;color:#7DFF7A;font-family:'VT323',monospace;font-size:24px;line-height:1;text-shadow:0 0 6px rgba(125,255,122,0.55);display:flex;flex-direction:column">
+
+        <div style="display:flex;align-items:center;gap:32px;padding:26px 44px 0">
+          <span style="font-size:30px;letter-spacing:0.1em">RANDOM TV</span>
+          <div style="display:flex;gap:6px;font-size:26px">
+            <span style="background:#7DFF7A;color:#030603;text-shadow:none;padding:3px 12px">CHANNELS</span>
+            <span style="padding:3px 12px;color:#3FA43F">SETTINGS</span>
+          </div>
+          <div style="flex:1"></div>
+          <span style="color:#FF6B5A;text-shadow:0 0 6px rgba(255,90,71,0.6)">● ON AIR</span>
+          <span style="font-size:42px">CH 01</span>
+          <span style="color:#3FA43F;font-size:26px">7:22 PM</span>
+        </div>
+        <div style="margin:18px 44px 0;height:2px;background:#2F7A32;box-shadow:0 0 6px rgba(125,255,122,0.4)"></div>
+
+        <div style="flex:1;min-height:0;display:grid;grid-template-columns:290px minmax(0,1fr);gap:40px;padding:22px 44px 0">
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:28px">
+            <div style="color:#3FA43F;font-size:22px;padding:0 10px 8px">CHANNEL LIST</div>
+            <div style="display:flex;justify-content:space-between;background:#7DFF7A;color:#030603;text-shadow:none;padding:6px 10px"><span>▶ 01 CHANNEL 1</span><span>3</span></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 10px;color:#5FCF5F"><span>  02 [SECOND CH]</span><span>0</span></div>
+            <div style="padding:6px 10px;color:#3FA43F">  + NEW CHANNEL</div>
+            <div style="flex:1"></div>
+            <div style="color:#2F7A32;font-size:21px;line-height:1.15;padding:0 10px 22px">CHANNELS KEEP AIRING WHILE THE APP IS CLOSED.</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+            <div style="display:flex;align-items:flex-end;gap:22px">
+              <span style="font-size:72px;line-height:0.8">CH 01</span>
+              <span style="font-size:44px;line-height:0.85">CHANNEL 1</span>
+              <div style="flex:1"></div>
+              <span style="color:#3FA43F;font-size:22px">[R] RENAME   [DEL] DELETE CHANNEL</span>
+            </div>
+
+            <div style="border:2px solid #2F7A32;padding:12px 16px;display:flex;flex-direction:column;gap:10px">
+              <div style="color:#3FA43F;font-size:21px">ADD PROGRAMS · VIDEO LINKS, ONE PER LINE, OR A PLAYLIST URL</div>
+              <div style="font-size:26px">https://youtu.be/<span style="animation:blink 1s steps(1) infinite">█</span></div>
+              <div style="display:flex;gap:22px;font-size:22px;border-top:1px dashed #2F7A32;padding-top:8px">
+                <span>OK  ADDED 3</span><span style="color:#3FA43F">0 ALREADY HERE</span><span style="color:#3FA43F">0 CAN'T AIR</span>
+                <div style="flex:1"></div><span style="color:#3FA43F">⌘ENTER = ADD</span>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:14px;font-size:22px;white-space:nowrap;overflow:hidden">
+              <span style="color:#3FA43F">COMING UP</span>
+              <span>NOW LAIN EXPLAINED [01-03]</span><span style="color:#2F7A32">··</span>
+              <span>7:39 POV SLEEPLESS TAXI DRIVER</span><span style="color:#2F7A32">··</span>
+              <span>8:18 LAIN EP 01</span><span style="color:#2F7A32">··</span>
+              <span>8:39 LAIN EXPLAINED [01-03]</span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="display:grid;grid-template-columns:76px 150px minmax(0,1fr) 72px 200px;gap:16px;color:#3FA43F;font-size:20px;padding:0 10px 4px">
+                <span></span><span>STATUS</span><span>PROGRAM · 3 IN ROTATION</span><span>LENGTH</span><span>WATCHED · GONE AT 70</span>
+              </div>
+              <div style="display:grid;grid-template-columns:76px 150px minmax(0,1fr) 72px 200px;gap:16px;align-items:center;padding:6px 10px;outline:2px solid #7DFF7A;outline-offset:-2px">
+                <div style="height:43px;border:1px solid #2F7A32;background:repeating-linear-gradient(0deg,#0b1a0b 0 2px,#030603 2px 4px);display:flex;align-items:center;justify-content:center;font-size:15px;color:#2F7A32">THUMB</div>
+                <span style="color:#FF6B5A;text-shadow:0 0 6px rgba(255,90,71,0.6)">● ON AIR</span>
+                <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">SERIAL EXPERIMENTS LAIN EXPLAINED! [LAYER 01-03]</span>
+                <span>41:25</span>
+                <div style="display:flex;align-items:center;gap:3px"><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:2px;height:24px;background:#7DFF7A;margin:0 2px"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="margin-left:8px">01%</span></div>
+              </div>
+              <div style="display:grid;grid-template-columns:76px 150px minmax(0,1fr) 72px 200px;gap:16px;align-items:center;padding:6px 10px">
+                <div style="height:43px;border:1px solid #2F7A32;background:repeating-linear-gradient(0deg,#0b1a0b 0 2px,#030603 2px 4px);display:flex;align-items:center;justify-content:center;font-size:15px;color:#2F7A32">THUMB</div>
+                <span>NEXT 7:39 PM</span>
+                <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">POV YOU ARE A SLEEPLESS TAXI DRIVER LISTENING TO A RADIOHEAD PLAYLIST AT LATE NIGHT</span>
+                <span>39:11</span>
+                <div style="display:flex;align-items:center;gap:3px"><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:2px;height:24px;background:#7DFF7A;margin:0 2px"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="margin-left:8px;color:#3FA43F">NEW</span></div>
+              </div>
+              <div style="display:grid;grid-template-columns:76px 150px minmax(0,1fr) 72px 200px;gap:16px;align-items:center;padding:6px 10px">
+                <div style="height:43px;border:1px solid #2F7A32;background:repeating-linear-gradient(0deg,#0b1a0b 0 2px,#030603 2px 4px);display:flex;align-items:center;justify-content:center;font-size:15px;color:#2F7A32">THUMB</div>
+                <span>AIRS 8:18 PM</span>
+                <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">SERIAL EXPERIMENTS LAIN EP 01 LEGENDADO PT-BR</span>
+                <span>20:19</span>
+                <div style="display:flex;align-items:center;gap:3px"><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:11px;height:16px;border:1px solid #2F7A32"></span><span style="width:2px;height:24px;background:#7DFF7A;margin:0 2px"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="width:11px;height:16px;border:1px dashed #2F7A32"></span><span style="margin-left:8px;color:#3FA43F">NEW</span></div>
+              </div>
+              <div style="color:#3FA43F;font-size:20px;padding:10px 10px 4px">CAN'T AIR · 1</div>
+              <div style="display:grid;grid-template-columns:76px 150px minmax(0,1fr) 272px;gap:16px;align-items:center;padding:6px 10px;color:#3FA43F">
+                <div style="height:43px;border:1px dashed #2F7A32;display:flex;align-items:center;justify-content:center;font-size:15px">NO SIG</div>
+                <span style="color:#FF8A7A;text-shadow:0 0 6px rgba(255,90,71,0.5)">UNAVAILABLE</span>
+                <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">[VIDEO TITLE]</span>
+                <span style="color:#FF8A7A;text-shadow:0 0 6px rgba(255,90,71,0.5)">LIVE STREAM · NO FIXED LENGTH</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:34px;padding:14px 44px 22px;border-top:2px solid #173d18;font-size:22px;color:#3FA43F">
+          <span>▲▼ MOVE</span><span>◀▶ PANE</span><span>ENTER SELECT</span><span>DEL REMOVE PROGRAM</span><div style="flex:1"></div><span style="color:#7DFF7A">ESC BACK TO TV</span>
+        </div>
+
+        <sc-if value="{{ crt }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.35) 0 1px,transparent 1px 3px)"></div>
+          <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.6) 100%)"></div>
+        </sc-if>
+      </div>
+    </div>
+
+    <!-- 1b CABLE GUIDE -->
+    <div id="1b" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">1b</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Cable Guide</span>
+        <span style="font-size:15px;color:#b5b1a8">Extends the blue guide overlay. Live picture top-left, a real time grid, yellow selection cell.</span>
+      </div>
+      <div style="width:1280px;height:760px;position:relative;overflow:hidden;background:#07104A;color:#FFFFFF;font-family:'Barlow',sans-serif;font-size:16px;display:flex;flex-direction:column">
+
+        <div style="display:flex;gap:28px;padding:28px 32px 20px">
+          <div style="width:384px;height:216px;flex-shrink:0;position:relative;border:3px solid #FFFFFF;background:repeating-linear-gradient(135deg,#0d1a5e 0 10px,#0a1550 10px 20px);display:flex;align-items:center;justify-content:center">
+            <span style="font:13px 'Share Tech Mono',monospace;color:#8C9BE8;letter-spacing:0.1em">LIVE PICTURE · CH 01</span>
+            <span style="position:absolute;top:10px;right:14px;font:36px 'VT323',monospace;color:#7DFF7A;text-shadow:0 0 6px rgba(125,255,122,0.6)">01</span>
+          </div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font:700 20px 'Barlow Condensed',sans-serif;letter-spacing:0.06em;background:#FFE14D;color:#07104A;padding:6px 18px">CHANNELS</span>
+              <span style="font:600 20px 'Barlow Condensed',sans-serif;letter-spacing:0.06em;background:#1A2C9A;color:#C9D1FF;padding:6px 18px">SETTINGS</span>
+              <div style="flex:1"></div>
+              <span style="font:700 40px 'Barlow Condensed',sans-serif;line-height:1">7:22<span style="font-size:22px;margin-left:4px">PM</span></span>
+            </div>
+            <div style="margin-top:14px;font:600 15px 'Barlow Condensed',sans-serif;letter-spacing:0.12em;color:#FFE14D">NOW ON 01 · CHANNEL 1</div>
+            <div style="font:700 36px/1.05 'Barlow Condensed',sans-serif;text-wrap:pretty">Serial Experiments Lain Explained! [Layer 01-03]</div>
+            <div style="font-size:17px;color:#C9D1FF">6:58 – 7:39 PM · 17 min left · 1% watched</div>
+            <div style="flex:1"></div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="font:700 18px 'Barlow Condensed',sans-serif;letter-spacing:0.04em;border:2px solid #FFE14D;color:#FFE14D;padding:7px 16px">BACK TO TV <span style="font-family:'Share Tech Mono',monospace;font-size:14px;margin-left:6px">ESC</span></span>
+              <span style="font-size:14px;color:#8C9BE8">Channels keep airing while the app is closed.</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:3px;padding:0 32px">
+          <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:3px">
+            <div style="background:#FFE14D;color:#07104A;font:700 16px 'Barlow Condensed',sans-serif;letter-spacing:0.08em;padding:6px 12px">TONIGHT</div>
+            <div style="position:relative;background:#22389F;font:600 16px 'Barlow Condensed',sans-serif;height:31px">
+              <span style="position:absolute;left:8px;top:6px">7:00</span><span style="position:absolute;left:calc(20% + 8px);top:6px">7:30</span><span style="position:absolute;left:calc(40% + 8px);top:6px">8:00</span><span style="position:absolute;left:calc(60% + 8px);top:6px">8:30</span><span style="position:absolute;left:calc(80% + 8px);top:6px">9:00</span>
+              <span style="position:absolute;left:14.7%;top:0;bottom:-120px;width:2px;background:#FFE14D;z-index:2"></span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:3px;height:58px">
+            <div style="background:#FFE14D;color:#07104A;display:flex;align-items:center;gap:12px;padding:0 12px">
+              <span style="font:700 30px 'Barlow Condensed',sans-serif">01</span>
+              <span style="display:flex;flex-direction:column"><span style="font:700 19px 'Barlow Condensed',sans-serif">Channel 1</span><span style="font-size:13px;font-weight:500">3 programs</span></span>
+            </div>
+            <div style="position:relative">
+              <div style="position:absolute;left:0;width:calc(26% - 3px);top:0;bottom:0;background:#3550E0;padding:8px 10px;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:600 17px 'Barlow Condensed',sans-serif">◀ Lain Explained! [Layer 01-03]</div>
+              <div style="position:absolute;left:26%;width:calc(26% - 3px);top:0;bottom:0;background:#1A2C9A;padding:8px 10px;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:600 17px 'Barlow Condensed',sans-serif">POV you are a sleepless taxi driver…</div>
+              <div style="position:absolute;left:52%;width:calc(14% - 3px);top:0;bottom:0;background:#1A2C9A;padding:8px 10px;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:600 17px 'Barlow Condensed',sans-serif">Lain Ep 01</div>
+              <div style="position:absolute;left:66%;width:calc(27.3% - 3px);top:0;bottom:0;background:#1A2C9A;padding:8px 10px;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:600 17px 'Barlow Condensed',sans-serif">Lain Explained! [Layer 01-03]</div>
+              <div style="position:absolute;left:93.3%;right:0;top:0;bottom:0;background:#1A2C9A;padding:8px 6px;box-sizing:border-box;overflow:hidden;font:600 17px 'Barlow Condensed',sans-serif">▶</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:3px;height:46px">
+            <div style="background:#1A2C9A;display:flex;align-items:center;gap:12px;padding:0 12px">
+              <span style="font:700 26px 'Barlow Condensed',sans-serif;color:#8C9BE8">02</span>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif;color:#C9D1FF">[Second channel]</span>
+            </div>
+            <div style="background:repeating-linear-gradient(90deg,#101C6E 0 6px,#0C1660 6px 12px);display:flex;align-items:center;padding:0 12px;font:600 16px 'Barlow Condensed',sans-serif;letter-spacing:0.06em;color:#8C9BE8">NO SIGNAL · ADD VIDEOS TO START AIRING</div>
+          </div>
+          <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:3px">
+            <div style="border:2px dashed #3D52C4;padding:6px 12px;font:600 16px 'Barlow Condensed',sans-serif;color:#C9D1FF">+ New channel</div>
+          </div>
+        </div>
+
+        <div style="flex:1;min-height:0;display:grid;grid-template-columns:360px minmax(0,1fr);gap:24px;padding:18px 32px 24px">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font:700 15px 'Barlow Condensed',sans-serif;letter-spacing:0.12em;color:#FFE14D">ADD TO CH 01</span>
+              <div style="flex:1"></div>
+              <span style="font:600 15px 'Barlow Condensed',sans-serif;background:#1A2C9A;padding:4px 10px">Rename</span>
+              <span style="font:600 15px 'Barlow Condensed',sans-serif;background:#1A2C9A;color:#FF9C9C;padding:4px 10px">Delete channel</span>
+            </div>
+            <div style="flex:1;background:#040A33;border:2px solid #3D52C4;padding:10px 12px;font:14px/1.6 'Share Tech Mono',monospace;color:#8C9BE8">https://youtu.be/…<br>https://www.youtube.com/playlist?list=…</div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:1;font-size:14px;color:#C9D1FF"><span style="color:#FFE14D;font-weight:600">Added 3</span> · 0 already here · 0 can't air</span>
+              <span style="font:700 18px 'Barlow Condensed',sans-serif;background:#FFE14D;color:#07104A;padding:8px 18px">ADD VIDEOS</span>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+            <div style="display:flex;justify-content:space-between;font:700 15px 'Barlow Condensed',sans-serif;letter-spacing:0.12em;color:#FFE14D;padding-bottom:5px"><span>3 IN ROTATION · 1 CAN'T AIR</span><span style="color:#8C9BE8;letter-spacing:0.04em;font-weight:500">Leaves the channel at 70% watched</span></div>
+            <div style="display:grid;grid-template-columns:72px minmax(0,1fr) 120px 56px 120px 28px;gap:14px;align-items:center;background:#1A2C9A;padding:6px 12px 6px 6px">
+              <div style="height:40px;background:repeating-linear-gradient(135deg,#2B40B0 0 6px,#22389F 6px 12px)"></div>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Serial Experiments Lain Explained! [Layer 01-03]</span>
+              <span style="font:700 14px 'Barlow Condensed',sans-serif;letter-spacing:0.08em;background:#E01E37;padding:3px 8px;justify-self:start">● ON AIR</span>
+              <span style="font:500 15px 'Share Tech Mono',monospace">41:25</span>
+              <span style="position:relative;height:6px;background:#0C1660"><span style="position:absolute;left:0;top:0;bottom:0;width:1%;background:#FFE14D"></span><span style="position:absolute;left:70%;top:-4px;width:2px;height:14px;background:#C9D1FF"></span></span>
+              <span style="font-size:18px;color:#8C9BE8;text-align:center">✕</span>
+            </div>
+            <div style="display:grid;grid-template-columns:72px minmax(0,1fr) 120px 56px 120px 28px;gap:14px;align-items:center;background:#1A2C9A;padding:6px 12px 6px 6px">
+              <div style="height:40px;background:repeating-linear-gradient(135deg,#2B40B0 0 6px,#22389F 6px 12px)"></div>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">POV you are a sleepless taxi driver listening to a Radiohead playlist at late night</span>
+              <span style="font:600 15px 'Barlow Condensed',sans-serif;color:#FFE14D">Next · 7:39 PM</span>
+              <span style="font:500 15px 'Share Tech Mono',monospace">39:11</span>
+              <span style="position:relative;height:6px;background:#0C1660"><span style="position:absolute;left:70%;top:-4px;width:2px;height:14px;background:#C9D1FF"></span></span>
+              <span style="font-size:18px;color:#8C9BE8;text-align:center">✕</span>
+            </div>
+            <div style="display:grid;grid-template-columns:72px minmax(0,1fr) 120px 56px 120px 28px;gap:14px;align-items:center;background:#1A2C9A;padding:6px 12px 6px 6px">
+              <div style="height:40px;background:repeating-linear-gradient(135deg,#2B40B0 0 6px,#22389F 6px 12px)"></div>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Serial experiments Lain Ep 01 LEGENDADO PT-BR</span>
+              <span style="font:600 15px 'Barlow Condensed',sans-serif;color:#C9D1FF">Airs 8:18 PM</span>
+              <span style="font:500 15px 'Share Tech Mono',monospace">20:19</span>
+              <span style="position:relative;height:6px;background:#0C1660"><span style="position:absolute;left:70%;top:-4px;width:2px;height:14px;background:#C9D1FF"></span></span>
+              <span style="font-size:18px;color:#8C9BE8;text-align:center">✕</span>
+            </div>
+            <div style="display:grid;grid-template-columns:72px minmax(0,1fr) 316px 28px;gap:14px;align-items:center;border:2px dashed #3D52C4;padding:4px 10px 4px 4px">
+              <div style="height:40px;background:#0C1660;display:flex;align-items:center;justify-content:center;font:11px 'Share Tech Mono',monospace;color:#8C9BE8">NO SIGNAL</div>
+              <span style="font:600 18px 'Barlow Condensed',sans-serif;color:#C9D1FF">[Video title]</span>
+              <span style="font:500 15px 'Barlow Condensed',sans-serif;color:#FF9C9C">Live streams can't be scheduled · no fixed length</span>
+              <span style="font-size:18px;color:#8C9BE8;text-align:center">✕</span>
+            </div>
+          </div>
+        </div>
+
+        <sc-if value="{{ crt }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.22) 0 1px,transparent 1px 3px)"></div>
+          <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,0.5) 100%)"></div>
+        </sc-if>
+      </div>
+    </div>
+
+    <!-- 1c FRONT PANEL -->
+    <div id="1c" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'Share Tech Mono',monospace;background:#e8e4da;color:#1c1c1b;padding:3px 8px;border-radius:3px">1c</span>
+        <span style="font:600 22px 'Barlow Condensed',sans-serif">Front Panel</span>
+        <span style="font-size:15px;color:#b5b1a8">VCR / set-top box hardware. Cyan VFD readouts, rubber preset buttons, LED meters for watched %.</span>
+      </div>
+      <div style="width:1280px;height:760px;position:relative;overflow:hidden;background:#131417;color:#D6D9DE;font-family:'Chakra Petch',sans-serif;font-size:15px;display:flex;flex-direction:column">
+
+        <div style="display:flex;align-items:center;gap:24px;padding:20px 28px;background:linear-gradient(180deg,#2D2F35,#1B1C20);border-bottom:1px solid #000;box-shadow:inset 0 1px 0 rgba(255,255,255,0.08)">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span style="font:600 22px 'Chakra Petch',sans-serif;letter-spacing:0.18em;color:#C9CDD3;text-shadow:0 -1px 0 #000">RANDOM TV</span>
+            <span style="font-size:11px;letter-spacing:0.2em;color:#7C8089">MENU</span>
+          </div>
+          <div style="flex:1;min-width:0;height:72px;background:#040A0A;border-radius:6px;box-shadow:inset 0 2px 8px #000,0 1px 0 rgba(255,255,255,0.06);display:flex;align-items:center;gap:22px;padding:0 20px;font-family:'Share Tech Mono',monospace;color:#6FF3E0;text-shadow:0 0 8px rgba(111,243,224,0.6)">
+            <div style="display:flex;flex-direction:column;gap:4px;font-size:10px;letter-spacing:0.1em">
+              <span style="color:#FF5A47;text-shadow:0 0 6px rgba(255,90,71,0.7)">● ON AIR</span>
+              <span>GUIDE</span>
+              <span style="color:#1B3B37;text-shadow:none">CC</span>
+            </div>
+            <span style="font-size:42px;line-height:1">CH01</span>
+            <span style="flex:1;min-width:0;font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">▶ LAIN EXPLAINED! [LAYER 01-03]</span>
+            <span style="font-size:22px">-17:04</span>
+            <span style="font-size:22px;color:#3FA99B">7:22PM</span>
+          </div>
+          <div style="display:flex;gap:8px">
+            <span style="display:flex;align-items:center;gap:8px;font:600 13px 'Chakra Petch',sans-serif;letter-spacing:0.1em;padding:10px 14px;border-radius:5px;background:linear-gradient(180deg,#3A3D44,#26282D);box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 2px 0 #000"><span style="width:7px;height:7px;border-radius:50%;background:#7DFF7A;box-shadow:0 0 6px #7DFF7A"></span>CHANNELS</span>
+            <span style="display:flex;align-items:center;gap:8px;font:600 13px 'Chakra Petch',sans-serif;letter-spacing:0.1em;padding:10px 14px;border-radius:5px;background:linear-gradient(180deg,#3A3D44,#26282D);box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 2px 0 #000;color:#9A9EA6"><span style="width:7px;height:7px;border-radius:50%;background:#26402A"></span>SETTINGS</span>
+            <span style="display:flex;align-items:center;gap:8px;font:600 13px 'Chakra Petch',sans-serif;letter-spacing:0.1em;padding:10px 14px;border-radius:5px;background:linear-gradient(180deg,#5A5E66,#3C3F46);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 2px 0 #000;color:#FFFFFF">TV <span style="font-family:'Share Tech Mono',monospace;font-size:11px;color:#C9CDD3">ESC</span></span>
+          </div>
+        </div>
+
+        <div style="flex:1;min-height:0;display:grid;grid-template-columns:250px minmax(0,1fr);gap:22px;padding:22px 28px 26px">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:11px;letter-spacing:0.22em;color:#7C8089">PRESETS</span>
+            <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:7px;background:linear-gradient(180deg,#3A3D44,#2A2C31);box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 2px 0 #000,0 0 0 1px #6FF3E0">
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:28px 'Share Tech Mono',monospace;color:#6FF3E0;text-shadow:0 0 8px rgba(111,243,224,0.5)">01</span><span style="width:8px;height:8px;border-radius:50%;background:#FF5A47;box-shadow:0 0 6px #FF5A47"></span></div>
+              <span style="font-weight:600;font-size:16px">Channel 1</span>
+              <span style="font-size:12px;color:#9A9EA6;letter-spacing:0.06em">3 PROGRAMS · 1H 41M</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:7px;background:linear-gradient(180deg,#2E3036,#222428);box-shadow:inset 0 1px 0 rgba(255,255,255,0.08),0 2px 0 #000">
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:28px 'Share Tech Mono',monospace;color:#3D5B57">02</span><span style="width:8px;height:8px;border-radius:50%;background:#3A2120"></span></div>
+              <span style="font-weight:500;font-size:16px;color:#B4B8BF">[Second channel]</span>
+              <span style="font-size:12px;color:#7C8089;letter-spacing:0.06em">NO SIGNAL · EMPTY</span>
+            </div>
+            <div style="padding:12px 14px;border-radius:7px;border:1px dashed #44474E;color:#9A9EA6;font-weight:500;text-align:center">+ New channel</div>
+            <div style="flex:1"></div>
+            <span style="font-size:12px;line-height:1.5;color:#7C8089">Channels keep airing while the app is closed.</span>
+          </div>
+
+          <div style="min-width:0;background:#0C0D10;border-radius:10px;box-shadow:inset 0 2px 10px #000,0 1px 0 rgba(255,255,255,0.05);padding:20px 22px;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center;gap:16px">
+              <span style="font:40px 'Share Tech Mono',monospace;color:#6FF3E0;text-shadow:0 0 8px rgba(111,243,224,0.5);line-height:1">01</span>
+              <span style="font:600 26px 'Chakra Petch',sans-serif">Channel 1</span>
+              <div style="flex:1"></div>
+              <span style="font:600 12px 'Chakra Petch',sans-serif;letter-spacing:0.12em;padding:8px 12px;border-radius:4px;background:linear-gradient(180deg,#33363C,#24262B);box-shadow:inset 0 1px 0 rgba(255,255,255,0.1),0 2px 0 #000">RENAME</span>
+              <span style="font:600 12px 'Chakra Petch',sans-serif;letter-spacing:0.12em;padding:8px 12px;border-radius:4px;background:linear-gradient(180deg,#33363C,#24262B);box-shadow:inset 0 1px 0 rgba(255,255,255,0.1),0 2px 0 #000;color:#FF8A7A">DELETE</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px">
+              <div style="background:#050607;border:1px solid #2A2C31;border-radius:6px;padding:10px 14px;display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:11px;letter-spacing:0.2em;color:#7C8089">INPUT ▸ VIDEO LINKS, ONE PER LINE, OR A PLAYLIST URL</span>
+                <span style="font:14px/1.6 'Share Tech Mono',monospace;color:#5E636C">https://youtu.be/…</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="flex:1;background:#040A0A;border-radius:6px;box-shadow:inset 0 2px 6px #000;display:flex;align-items:center;justify-content:space-around;font:16px 'Share Tech Mono',monospace;color:#6FF3E0;text-shadow:0 0 8px rgba(111,243,224,0.6)">
+                  <span>ADD 03</span><span style="color:#3FA99B">DUP 00</span><span style="color:#3FA99B">ERR 00</span>
+                </div>
+                <span style="font:600 13px 'Chakra Petch',sans-serif;letter-spacing:0.12em;text-align:center;padding:9px 0;border-radius:5px;background:linear-gradient(180deg,#5A5E66,#3C3F46);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 2px 0 #000;color:#fff">ADD  <span style="font-family:'Share Tech Mono',monospace;font-size:11px;color:#C9CDD3">⌘↵</span></span>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <div style="display:grid;grid-template-columns:80px minmax(0,1fr) 130px 64px 150px;gap:16px;font-size:11px;letter-spacing:0.2em;color:#7C8089;padding:0 8px 6px">
+                <span></span><span>PROGRAM MEMORY · 3</span><span>STATUS</span><span>LENGTH</span><span>WATCHED · OUT AT 70</span>
+              </div>
+              <div style="display:grid;grid-template-columns:80px minmax(0,1fr) 130px 64px 150px;gap:16px;align-items:center;padding:8px;border-radius:6px;background:#17191D">
+                <div style="height:45px;border-radius:3px;background:repeating-linear-gradient(135deg,#1F2226 0 6px,#191B1F 6px 12px)"></div>
+                <span style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Serial Experiments Lain Explained! [Layer 01-03]</span>
+                <span style="display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.12em;color:#FF8A7A"><span style="width:8px;height:8px;border-radius:50%;background:#FF5A47;box-shadow:0 0 6px #FF5A47"></span>ON AIR</span>
+                <span style="font:17px 'Share Tech Mono',monospace;color:#6FF3E0;text-shadow:0 0 6px rgba(111,243,224,0.5)">41:25</span>
+                <div style="display:flex;align-items:center;gap:2px"><span style="width:9px;height:14px;background:#7DFF7A;box-shadow:0 0 4px #7DFF7A"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#3A2C14;margin-left:4px"></span><span style="width:9px;height:14px;background:#3A2C14"></span><span style="width:9px;height:14px;background:#3A2C14"></span></div>
+              </div>
+              <div style="display:grid;grid-template-columns:80px minmax(0,1fr) 130px 64px 150px;gap:16px;align-items:center;padding:8px">
+                <div style="height:45px;border-radius:3px;background:repeating-linear-gradient(135deg,#1F2226 0 6px,#191B1F 6px 12px)"></div>
+                <span style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">POV you are a sleepless taxi driver listening to a Radiohead playlist at late night</span>
+                <span style="font-size:12px;letter-spacing:0.12em;color:#C9CDD3">NEXT · 7:39 PM</span>
+                <span style="font:17px 'Share Tech Mono',monospace;color:#6FF3E0;text-shadow:0 0 6px rgba(111,243,224,0.5)">39:11</span>
+                <div style="display:flex;align-items:center;gap:2px"><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#3A2C14;margin-left:4px"></span><span style="width:9px;height:14px;background:#3A2C14"></span><span style="width:9px;height:14px;background:#3A2C14"></span></div>
+              </div>
+              <div style="display:grid;grid-template-columns:80px minmax(0,1fr) 130px 64px 150px;gap:16px;align-items:center;padding:8px">
+                <div style="height:45px;border-radius:3px;background:repeating-linear-gradient(135deg,#1F2226 0 6px,#191B1F 6px 12px)"></div>
+                <span style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Serial experiments Lain Ep 01 LEGENDADO PT-BR</span>
+                <span style="font-size:12px;letter-spacing:0.12em;color:#9A9EA6">AIRS 8:18 PM</span>
+                <span style="font:17px 'Share Tech Mono',monospace;color:#6FF3E0;text-shadow:0 0 6px rgba(111,243,224,0.5)">20:19</span>
+                <div style="display:flex;align-items:center;gap:2px"><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#1E3320"></span><span style="width:9px;height:14px;background:#3A2C14;margin-left:4px"></span><span style="width:9px;height:14px;background:#3A2C14"></span><span style="width:9px;height:14px;background:#3A2C14"></span></div>
+              </div>
+              <div style="display:grid;grid-template-columns:80px minmax(0,1fr) 230px;gap:16px;align-items:center;padding:8px;margin-top:6px;border-top:1px solid #23252A">
+                <div style="height:45px;border-radius:3px;background:#050607;display:flex;align-items:center;justify-content:center;font:11px 'Share Tech Mono',monospace;color:#3D5B57">NO SIGNAL</div>
+                <span style="font-weight:500;color:#9A9EA6">[Video title]</span>
+                <span style="display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.06em;color:#FF8A7A"><span style="width:8px;height:8px;border-radius:50%;background:#7A2A22"></span>LIVE STREAM · CAN'T SCHEDULE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <sc-if value="{{ crt }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.18) 0 1px,transparent 1px 3px)"></div>
+          <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 62%,rgba(0,0,0,0.45) 100%)"></div>
+        </sc-if>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;crt&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { crt: this.props.crt ?? true };
+  }
+}
+</script>
+</body>
+</html>
